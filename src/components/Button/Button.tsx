@@ -1,5 +1,5 @@
-import { useAuthStore } from '../../store/auth/auth.ts'
-import ButtonProps from '../../types/Button.ts'
+import { useAuthStore } from '../../store/auth/auth'
+import ButtonProps from '../../types/Button'
 
 export default function Button({ variant, isDisabled, label, onClick, type }: ButtonProps) {
     const { loading } = useAuthStore()
