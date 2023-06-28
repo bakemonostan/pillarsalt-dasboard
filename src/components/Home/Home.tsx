@@ -45,7 +45,7 @@ export default function Home({ }: Props) {
     ]
     const { logout, random } = useAuthStore()
     const {
-        currentBalance, getCurrentBalance, getTotalBranches, getTotalTransactions, getTotalWithdrawals, isLoading, totalTransactions, totalbranches, totalwithdrawals
+        currentBalance, getCurrentBalance, getTotalBranches, getTotalTransactions, getTotalWithdrawals, isLoading, totalTransactions, totalbranches, totalwithdrawals, activeWallets, dormantWallets, getActiveWallets, getDormantWallets, getNewWallets, newWallets, getRegisteredWallets, registeredWallets
     } = useDashboardStore()
 
 
@@ -54,6 +54,10 @@ export default function Home({ }: Props) {
         getTotalBranches()
         getTotalTransactions()
         getTotalWithdrawals()
+        getActiveWallets()
+        getDormantWallets()
+        getNewWallets()
+        getRegisteredWallets()
     }, [])
 
     return (
@@ -102,13 +106,38 @@ export default function Home({ }: Props) {
                 <ChartSection />
             </section>
             <section className="hide flex gap-5 overflow-x-scroll ml-3 py-3">
-                {
-                    cards.map((card, index) => {
-                        return (
-                            <Card {...card} key={index} />
-                        )
-                    })
-                }
+                <Card
+                    amount={registeredWallets}
+                    isRaising={true}
+                    percentage="15%"
+                    title="Registered Wallets"
+                    id="91699973-7f80-4bd2-a58a-34462ca9adc2"
+                    lastMonth="Last month"
+                />
+                <Card
+                    amount={activeWallets}
+                    isRaising={true}
+                    percentage="15%"
+                    title="Active Wallets"
+                    id="91699973-7f80-4bd2-a58a-34462ca9adc2"
+                    lastMonth="Last month"
+                />
+                <Card
+                    amount={newWallets}
+                    id="91699973-7f80-4bd2-a58a-34462ca9adc2"
+                    isRaising={true}
+                    percentage="15%"
+                    title="New Wallets Created"
+                    lastMonth="Last month"
+                />
+                <Card
+                    amount={dormantWallets}
+                    id="91699973-7f80-4bd2-a58a-34462ca9adc2"
+                    isRaising={true}
+                    percentage="15%"
+                    title="Dormant Wallets"
+                    lastMonth="Last month"
+                />
             </section>
             <section className="border ">
                 <SystemHealth />

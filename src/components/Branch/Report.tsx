@@ -2,6 +2,7 @@ import Input from "../Form/Input"
 import Table from '../Table'
 import TransactionCard from "../Wallet/TransactionCard"
 import Button from "../Button/Button"
+import Card from "../Card/CardMain"
 
 const stuff = [1, 2, 3]
 export default function Report() {
@@ -53,9 +54,7 @@ export default function Report() {
                     </p>
                 </div>
                 <Table isReport={true} />
-                {stuff.map((item, index) => (
-                    <TransactionCard key={index} />
-                ))}
+                <Card page="branch" />
             </section>
         </div>
     )

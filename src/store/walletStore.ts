@@ -10,7 +10,7 @@ import { handleApiRequest } from "../utils/handelRequest";
 
 export const useWalletStore = create<WalletStore>((state) => ({
   isLoading: false,
-  merchantDashboard: [],
+  merchantDashboard: {} as MerchantDashboard,
   transactionHistory: [],
 
   getTransactionHistory: async () => {
@@ -20,7 +20,13 @@ export const useWalletStore = create<WalletStore>((state) => ({
     await handleApiRequest(state, apiRequest, setState);
   },
 
-  getMerchantDashboard: async () => {},
+  getMerchantDashboard: async () => {
+    const apiRequest = merchantApi.get("/Wallet/get-marchant-dashboard");
+    const setState = (merchantDashboard: MerchantDashboard) => {
+      state({ merchantDashboard });
+    };
+    await handleApiRequest(state, apiRequest, setState);
+  },
   getBankTransaction: async () => {},
   fundWallet: async (amount: number) => {},
   withdraw: async (amount: number) => {},

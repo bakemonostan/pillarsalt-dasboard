@@ -19,7 +19,9 @@ export default function WalletBody() {
                             <td className="px-4 py-2 border-b border-[#EBEBEB]">{formattedDateTime}</td>
                             <td className="px-4 py-2 border-b border-[#EBEBEB]">{transaction.transactionReference}</td>
                             <td className="px-4 py-2 border-b border-[#EBEBEB]">N1,200,200</td>
-                            <td className="px-4 py-2 border-b border-[#EBEBEB]">{transaction!!.status ? 'Completed' : 'Pending'}</td>
+                            <td className="px-4 py-2 border-b border-[#EBEBEB]">
+                                {transaction!!.status ? <span className="bg-greenMain text-white p-1 px-3 rounded-2xl"></span> : <span className="bg-orange-400 text-white p-1 px-3 rounded-2xl">Pending</span>}
+                            </td>
                             <td className="px-4 py-2 border-b border-[#EBEBEB]">{transaction.description}</td>
                             <td className="px-4 py-2 border-b border-[#EBEBEB] cursor-pointer">
                                 <img src={actionsIcon} alt="" className='mx-auto' />

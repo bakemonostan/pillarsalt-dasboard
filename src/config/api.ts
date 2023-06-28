@@ -12,11 +12,11 @@ const onRequest = (
 };
 
 export const authApi = axios.create({
-  baseURL: "http://pillarsaltsolutions.com/api",
+  baseURL: "https://pillarsaltsolutions.com/api",
 });
 
 export const merchantApi = axios.create({
-  baseURL: "http://merchant.pillarsaltsolutions.com/api/",
+  baseURL: "https://merchant.pillarsaltsolutions.com/api/",
 });
 
 merchantApi.interceptors.request.use(onRequest);

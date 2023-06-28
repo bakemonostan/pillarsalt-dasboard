@@ -3,11 +3,12 @@ import { useEffect } from "react"
 import Loader from "../components/Loaders/Loader"
 import { useWalletStore } from "../store/walletStore"
 export default function Wallet() {
-    const { getTransactionHistory, isLoading } = useWalletStore()
+    const { getTransactionHistory, isLoading, getMerchantDashboard } = useWalletStore()
 
 
     useEffect(() => {
         getTransactionHistory()
+        getMerchantDashboard()
     }, [])
 
 

@@ -3,6 +3,7 @@ import arrow from '/images/arrow-down.svg'
 import Table from "../Table"
 import TransactionCard from "../Wallet/TransactionCard"
 import { useBranchStore } from "../../store/branchStore"
+import Card from "../Card/CardMain"
 
 const cards = [
     {
@@ -80,9 +81,7 @@ export default function Transactions({ }: Props) {
                     </p>
                 </div>
                 <Table isTransaction={true} />
-                {stuff.map((item, index) => (
-                    <TransactionCard key={index} />
-                ))}
+                <Card page="transaction" />
             </section>
         </div>
     )

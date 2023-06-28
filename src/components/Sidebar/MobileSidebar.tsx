@@ -24,7 +24,7 @@ export default function MobileSidebar({ }: Props) {
     const closeSidebar = useTestStore(state => state.closeSidebar)
     'absolute top-0 left-0 w-full h-full bg-gray-100 py-5 px-7'
     return (
-        <div className={` top-0 left-0 w-full h-full bg-gray-100 py-5 px-7 ${isOpen ? 'absolute' : 'hidden'}`}
+        <div className={` top-0 left-0 w-full h-full bg-gray-100 py-5 px-7 ${isOpen ? 'absolute z-[100]' : 'hidden'}`}
         >
 
             <div>

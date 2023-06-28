@@ -1,7 +1,7 @@
 export interface WalletStore {
   isLoading: boolean;
   transactionHistory: TransactionHistory[];
-  merchantDashboard: MerchantDashboard[];
+  merchantDashboard: MerchantDashboard;
   getTransactionHistory: () => Promise<void>;
   getMerchantDashboard: () => Promise<void>;
   getBankTransaction: () => Promise<void>;
@@ -23,7 +23,7 @@ export interface MerchantDashboard {
   userId: string;
   bankId: string;
   bankName: string;
-  accountBalance: string;
+  accountBalance: number;
   accountName: string;
   balance: number;
   terminalRef: string | null;

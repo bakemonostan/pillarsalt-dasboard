@@ -10,7 +10,7 @@ interface Props extends ButtonProps {
     title: React.ReactNode
     children?: React.ReactNode
 }
-export default function ModalMain({ title, children, label, variant }: Props) {
+export default function ModalMain({ title, children }: Props) {
 
     const closeModal = useModal(state => state.closeModal)
     return (
@@ -21,7 +21,7 @@ export default function ModalMain({ title, children, label, variant }: Props) {
                     tabIndex={-1}
                 ></div>
 
-                <div className="bg-white w-[90%] rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full">
+                <div className="bg-white w-[90%] rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full">
                     <div className="bg-white px-4 py-3 flex justify-between items-center sm:px-6">
                         <div className="flex items-center gap-2">
                             <span><img src={back} alt="" /></span>
@@ -33,7 +33,7 @@ export default function ModalMain({ title, children, label, variant }: Props) {
                     <div className="px-4 py-5 sm:p-6">
                         <div className="flex flex-col justify-center mx-auto text-center w-full bg-greenMain bg-opacity-5 p-2 rounded-md">
                             <span className="text-blac text-xs">Wallet Balance</span>
-                            <span className="font-bold text-sm text-greenMain">₦12,750,000</span>
+                            <span className="font-bold text-lg text-greenMain">₦12,750,000</span>
                         </div>
                         <Input
                             onchange={() => { }}
@@ -42,10 +42,8 @@ export default function ModalMain({ title, children, label, variant }: Props) {
                             label="Amount"
                             value=""
                         />
-                        {/* {children} */}
-                        <h3>
-                            Choose Method
-                        </h3>
+                        {children}
+
 
                         <div>
 

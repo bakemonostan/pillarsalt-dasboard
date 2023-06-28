@@ -3,10 +3,11 @@ import profileIcon from '/images/icon-holder.svg'
 import walletIcon from '/images/walletCard.svg'
 import bank from '/images/bank.svg'
 import Table from '../Table'
-import TransactionCard from "./TransactionCard"
 import { useModal } from "../../store/wallet"
 import { useWalletStore } from "../../store/walletStore"
-import { useEffect } from "react"
+import { formatCurrency } from "../../utils/formatCurrency"
+import ModalMain from "../ModalsAndPopups/ModalMain"
+import Card from "../Card/CardMain"
 
 
 const stuff = [1, 2, 3]
@@ -14,18 +15,32 @@ type Props = {}
 export default function Walletin({ }: Props) {
     const isOpen = useModal(state => state.isOpen)
     const fundWallet = useModal(state => state.showModal)
+    const { merchantDashboard } = useWalletStore()
 
     return (
         <>
-            {/* {isOpen && < ModalMain title='Fund Wallet' />} */}
+            {isOpen && <ModalMain title='Fund Wallet' >
+                <div>
+                    <div>
+                        <h3>
+                            Choose Method
+                        </h3>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </ModalMain>
+            }
 
             <h1 className="text-xl font-extrabold text-headers pt-10">Wallet Management</h1>
             <section className="flex flex-col flex-wrap lg:flex-row gap-5 py-4 xl:flex-nowrap ">
                 <Cards title="Account Details">
                     <div className='flex justify-between items-center p-3'>
                         <div className="space-y-1.5">
-                            <p className="text-headersTwo text-2xl font-bold">James Ajayi</p>
-                            <p className="text-grayTwo text-sm">Wallet ID: 18273928 </p>
+                            <p className="text-headersTwo text-2xl font-bold">{merchantDashboard.accountName}</p>
+                            <p className="truncate w-40 text-grayTwo text-sm">Wallet ID: {merchantDashboard.walletId} </p>
                         </div>
                         <div>
                             <img src={profileIcon} alt="" className='' />
@@ -35,7 +50,7 @@ export default function Walletin({ }: Props) {
                 <Cards title="Account Balance">
                     <div className='flex justify-between items-center p-3'>
                         <div className="space-y-1.5">
-                            <p className="text-headersTwo text-2xl font-bold">₦12,750,000</p>
+                            <p className="text-headersTwo text-2xl font-bold">{formatCurrency(merchantDashboard.accountBalance ?? '0')}</p>
                             <div className="flex gap-1 justify-between">
 
                                 <button type="button" className="bg-greenMain text-white rounded-md text-xs py-1.5 px-3" onClick={fundWallet} >
@@ -75,9 +90,10 @@ export default function Walletin({ }: Props) {
                     </p>
                 </div>
                 <Table isWallet={true} />
-                {stuff.map((item, index) => (
-                    <TransactionCard key={index} />
-                ))}
+
+                {/* <TransactionCard /> */}
+                <Card page="wallet" />
+
             </section>
         </>
     )

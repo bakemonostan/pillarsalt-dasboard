@@ -9,6 +9,10 @@ export const useDashboardStore = create<DashBoard>((set) => ({
   totalTransactions: 0,
   totalwithdrawals: 0,
   totalbranches: "0",
+  activeWallets: "0",
+  newWallets: "0",
+  dormantWallets: "0",
+  registeredWallets: "0",
   getCurrentBalance: async () => {
     set({ isLoading: true });
     const req = merchantApi.get(
@@ -49,6 +53,49 @@ export const useDashboardStore = create<DashBoard>((set) => ({
     );
     const setState = (totalbranches: string) => {
       set({ totalbranches });
+    };
+    await handleApiRequest(set, req, setState);
+    set({ isLoading: false });
+  },
+
+  getActiveWallets: async () => {
+    set({ isLoading: true });
+    const req = merchantApi.get(
+      "/DashboardAndReport/get-active-wallet-dashboard"
+    );
+    const setState = (activeWallets: string) => {
+      set({ activeWallets });
+    };
+    await handleApiRequest(set, req, setState);
+    set({ isLoading: false });
+  },
+  getNewWallets: async () => {
+    set({ isLoading: true });
+    const req = merchantApi.get("/DashboardAndReport/get-new-wallet-dashboard");
+    const setState = (newWallets: string) => {
+      set({ newWallets });
+    };
+    await handleApiRequest(set, req, setState);
+    set({ isLoading: false });
+  },
+  getDormantWallets: async () => {
+    set({ isLoading: true });
+    const req = merchantApi.get(
+      "/DashboardAndReport/get-domain-wallet-dashboard"
+    );
+    const setState = (dormantWallets: string) => {
+      set({ dormantWallets });
+    };
+    await handleApiRequest(set, req, setState);
+    set({ isLoading: false });
+  },
+  getRegisteredWallets: async () => {
+    set({ isLoading: true });
+    const req = merchantApi.get(
+      "/DashboardAndReport/get-register-wallet-dashboard"
+    );
+    const setState = (registeredWallets: string) => {
+      set({ registeredWallets });
     };
     await handleApiRequest(set, req, setState);
     set({ isLoading: false });
