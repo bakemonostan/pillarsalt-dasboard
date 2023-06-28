@@ -1,6 +1,6 @@
 import Home from "./Home";
 import Branch from "./Branch/Branch-Location";
-import Login from "./auth/Login";
+import Login from "./auth";
 import Profile from "./Profile";
 import Support from "./Support";
 import Wallet from "./Wallet";
