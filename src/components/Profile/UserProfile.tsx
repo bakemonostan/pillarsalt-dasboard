@@ -9,8 +9,6 @@ export default function UserProfile() {
     const { setView, getUserProfile, userProfile, isLoading } = useProfileStore()
     useEffect(() => {
         getUserProfile()
-        console.log(userProfile)
-        console.log(isLoading)
     }, [])
 
     return (

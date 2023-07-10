@@ -2,36 +2,44 @@ import Cards from "./Cards"
 import profileIcon from '/images/icon-holder.svg'
 import walletIcon from '/images/walletCard.svg'
 import bank from '/images/bank.svg'
-import Table from '../Table'
+import Table from './Table'
 import { useModal } from "../../store/wallet"
 import { useWalletStore } from "../../store/walletStore"
 import { formatCurrency } from "../../utils/formatCurrency"
 import ModalMain from "../ModalsAndPopups/ModalMain"
 import Card from "../Card/CardMain"
+import WithdrawFunds from "../ModalsAndPopups/WithdrawFunds"
+import Pagination from "../Paginate"
+import { useState } from "react"
 
 
-const stuff = [1, 2, 3]
 type Props = {}
 export default function Walletin({ }: Props) {
-    const isOpen = useModal(state => state.isOpen)
-    const fundWallet = useModal(state => state.showModal)
-    const { merchantDashboard } = useWalletStore()
+    const { isFundWallet, showModal, isWithdraw } = useModal()
+    const { merchantDashboard, transactionHistory } = useWalletStore()
+    const [currentPage, setCurrentPage] = useState(1)
+    const [rowsPerPage] = useState(5)
+
+    const indexOfLastCard = currentPage * rowsPerPage
+    const indexOfFirstCard = indexOfLastCard - rowsPerPage
+    const currentTransactions = transactionHistory.slice(indexOfFirstCard, indexOfLastCard)
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page)
+    }
+
+
 
     return (
         <>
-            {isOpen && <ModalMain title='Fund Wallet' >
-                <div>
-                    <div>
-                        <h3>
-                            Choose Method
-                        </h3>
-                    </div>
-                    <div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
+            {isFundWallet && <ModalMain title='Fund Wallet' >
+                <h3>
+                    Choose Method
+                </h3>
             </ModalMain>
+            }
+            {isWithdraw && <WithdrawFunds title='Withdraw Funds' />
+
             }
 
             <h1 className="text-xl font-extrabold text-headers pt-10">Wallet Management</h1>
@@ -53,11 +61,13 @@ export default function Walletin({ }: Props) {
                             <p className="text-headersTwo text-2xl font-bold">{formatCurrency(merchantDashboard.accountBalance ?? '0')}</p>
                             <div className="flex gap-1 justify-between">
 
-                                <button type="button" className="bg-greenMain text-white rounded-md text-xs py-1.5 px-3" onClick={fundWallet} >
+                                <button type="button" className="bg-greenMain text-white rounded-md text-xs py-1.5 px-3" onClick={() => { showModal('fund') }} >
                                     Fund wallet
                                 </button>
 
-                                <button type="button" className="bg-white border-greenMain border rounded-md py-1.5 px-3 text-xs">
+                                <button type="button" className="bg-white border-greenMain border rounded-md py-1.5 px-3 text-xs"
+                                    onClick={() => { showModal('withdraw') }}
+                                >
                                     Withdraw
                                 </button>
                             </div>
@@ -79,22 +89,52 @@ export default function Walletin({ }: Props) {
                     </div>
                 </Cards>
             </section>
+
             {/* table section */}
-            <section className="flex flex-col gap-5 py-4">
-                <div className="flex justify-between md:w-[23rem] items-center md:mx-auto xl:w-full">
-                    <h2 className="font-bold text-xl text-headers">
-                        Tranaction History
-                    </h2>
-                    <p className="text-sm text-greenMain font-bold cursor-pointer">
-                        See all
-                    </p>
-                </div>
-                <Table isWallet={true} />
+            {
+                transactionHistory.length > 0 ?
+                    <section className="flex flex-col gap-5 py-4">
+                        <div className="flex justify-between md:w-[23rem] items-center md:mx-auto xl:w-full">
+                            <h2 className="font-bold text-xl text-headers">
+                                Tranaction History
+                            </h2>
+                            <p className="text-sm text-greenMain font-bold cursor-pointer">
+                                See all
+                            </p>
+                        </div>
+                        <div className="overflow-x-auto hidden xl:block">
+                            <table className="table-auto border-collapse w-full">
+                                <thead className="text-center">
+                                    <tr className=" bg-[#ECF2BA] w-full py-3">
+                                        <th className="px-4 py-2">S/N</th>
+                                        <th className="px-4 py-2">Date</th>
+                                        <th className="px-4 py-2">Transaction Reference</th>
+                                        <th className="px-4 py-2">Amount</th>
+                                        <th className="px-4 py-2">Status</th>
+                                        <th className="px-4 py-2">Narration</th>
+                                        <th className="px-4 py-2 text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                {
+                                    currentTransactions.map((transaction) => {
+                                        return (
+                                            <Table key={transaction.id} {...transaction} />
+                                        )
+                                    })
+                                }
+                            </table>
+                        </div>
+                        <Pagination
+                            currentPage={currentPage}
+                            onPageChange={handlePageChange}
+                            totalPages={Math.ceil(transactionHistory.length / rowsPerPage)}
+                        />
+                        <Card page="wallet" />
 
-                {/* <TransactionCard /> */}
-                <Card page="wallet" />
-
-            </section>
+                    </section>
+                    :
+                    'meh'
+            }
         </>
     )
 }

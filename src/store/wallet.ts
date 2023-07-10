@@ -1,31 +1,34 @@
-import {create} from 'zustand';
+import { create } from "zustand";
 
+type modalType = "fund" | "withdraw";
 interface ModalStore {
-    isOpen: boolean;  
-    modalType?: 'fund' | 'withdraw' |'transfer' 
-    showModal?: ( ) => void;
-    closeModal?: ( ) => void;
-    setModal?: ( ) => void;
+  isFundWallet?: boolean;
+  isWithdraw?: boolean;
+  modalType: modalType;
+  showModal: (type: modalType) => void;
+  closeModal: (type: modalType) => void;
 }
 
+export const useModal = create<ModalStore>((set) => ({
+  isOpen: false,
+  modalType: "fund",
+  showModal: (type: modalType) => {
+    if (type === "fund") {
+      set({ isFundWallet: true });
+    }
+    if (type === "withdraw") {
+      set({ isWithdraw: true });
+    }
+    return;
+  },
 
-
-
-
-
-export const useModal = create<ModalStore>( (set) => ({
-isOpen: false,
-modalType: 'fund',
-showModal: () => set( (state) => (
-    {isOpen: true}
- ) ),
-closeModal: () => set( (state) => (
-    {isOpen: false}
- ) ),
-setModal: () => set( (state) => (
-    {isOpen: false}
- ) ),
-
-
-}
-)); 
+  closeModal: (type: modalType) => {
+    if (type === "fund") {
+      set({ isFundWallet: false });
+    }
+    if (type === "withdraw") {
+      set({ isWithdraw: false });
+    }
+    return;
+  },
+}));

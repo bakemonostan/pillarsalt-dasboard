@@ -37,16 +37,15 @@ export const useAuthStore = create<AuthState>()(
             } = response.data;
 
             state({ token, isLoggedIn: true, loading: false, profileId });
-            console.log(profileId);
+            profileId;
           } catch (error) {
             // Handle any errors that occurred during the request
-            console.error("Login failed:", error);
             state({ loading: false });
           }
         },
 
         logout: async () => {
-          localStorage.removeItem("token");
+          sessionStorage.removeItem("token");
           axios.defaults.headers.common["Authorization"] = "";
           state({ token: null });
           state({ isLoggedIn: false });
@@ -55,7 +54,7 @@ export const useAuthStore = create<AuthState>()(
 
       {
         name: "auth",
-        storage: createJSONStorage(() => localStorage),
+        storage: createJSONStorage(() => sessionStorage),
       }
     )
   )
@@ -73,8 +72,16 @@ export const useMerchantStore = create<Merchant>()((state) => ({
       const response = await authApi.post<UserData>("/Account/login", user);
       const userData = response?.data;
       state({ userData });
-    } catch (error) {
-      console.error("GetUserData failed:", error);
-    }
+    } catch (error) {}
   },
+}));
+
+type Email = {
+  email: string;
+  setEmail: (password: string) => void;
+};
+
+export const useResetPasswordStore = create<Email>((set) => ({
+  email: "",
+  setEmail: (email) => set({ email }),
 }));

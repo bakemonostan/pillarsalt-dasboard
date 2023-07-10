@@ -10,6 +10,6 @@ export const handleApiRequest = async (
     setState(data);
     state({ isLoading: false });
   } catch (error) {
-    console.log(error);
+    error;
   }
 };

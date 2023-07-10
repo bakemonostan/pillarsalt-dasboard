@@ -25,6 +25,9 @@ export interface AllBranches {
   status: boolean;
 }
 
+export interface BranchReportProps extends AllBranches {}
+export interface transactionHistoryProps extends BranchTransactionHistory {}
+
 export interface BranchRequest {
   id: number;
   createdAt: string;

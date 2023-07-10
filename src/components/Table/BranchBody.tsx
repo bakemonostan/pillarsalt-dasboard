@@ -10,7 +10,7 @@ export default function BranchBody() {
                 allBranches?.map((transaction, i) => {
                     const { createdAt } = transaction
                     const date = new Date(createdAt);
-                    const formattedDateTime = date.toLocaleString();
+                    const formattedDateTime = date.toLocaleDateString();
                     return (
                         <tr className="border-b border-[#EBEBEB] text-center" key={i}>
                             <td className="px-4 py-2 border-b border-[#EBEBEB]">{transaction.id}</td>

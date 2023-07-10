@@ -19,14 +19,12 @@ export default function EditProfile() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        console.log(formFields)
         const response = await merchantApi.put('Configuration/update-marchant-detail', {
             profileId,
             acquirerId,
             merchantRef,
             ...formFields
         })
-        console.log(response)
     }
 
     return (
@@ -62,8 +60,7 @@ export default function EditProfile() {
                                     onchange={(e) => { handleInput('firstName', e.target.value) }}
                                     placeholder="First name"
                                     type="text"
-                                    // value={formFields.firstName}
-                                    value='Suraju'
+                                    value={formFields.firstName}
                                     required={true}
                                 />
                                 <Input
@@ -71,8 +68,7 @@ export default function EditProfile() {
                                     onchange={(e) => { handleInput('lastName', e.target.value) }}
                                     placeholder="Last name"
                                     type="text"
-                                    // value={formFields.lastName}
-                                    value='Suraju'
+                                    value={formFields.lastName}
                                     required={true}
 
                                 />
@@ -83,8 +79,7 @@ export default function EditProfile() {
                                     onchange={(e) => { handleInput('contactPerson', e.target.value) }}
                                     placeholder="Contact person"
                                     type="text"
-                                    // value={formFields.contactPerson}
-                                    value='Suraju'
+                                    value={formFields.contactPerson}
                                     required={true}
 
                                 />
@@ -93,8 +88,7 @@ export default function EditProfile() {
                                     onchange={(e) => { handleInput('companyName', e.target.value) }}
                                     placeholder="Company name"
                                     type="text"
-                                    // value={formFields.companyName}
-                                    value='Pillarsalt Ltd'
+                                    value={formFields.companyName}
                                     required={true}
 
                                 />
@@ -106,8 +100,7 @@ export default function EditProfile() {
                                 onchange={(e) => handleInput('email', e.target.value)}
                                 placeholder="example@email.com"
                                 type="email"
-                                // value={formFields.email}
-                                value='soscreation2020@gmail.com'
+                                value={formFields.email}
                                 required={true}
 
                             />
@@ -116,8 +109,7 @@ export default function EditProfile() {
                                 onchange={(e) => handleInput('address', e.target.value)}
                                 placeholder="Enter your address"
                                 type="text"
-                                // value={formFields.address}
-                                value='OBAWOLE CLOSE, IJU FAGBA, LAGOS'
+                                value={formFields.address}
                                 required={true}
 
                             />
@@ -128,8 +120,7 @@ export default function EditProfile() {
                                 onchange={(e) => handleInput('phoneNumberOne', e.target.value)}
                                 placeholder="Enter your number"
                                 type="text"
-                                // value={formFields.phoneNumberOne} 
-                                value='08063577223'
+                                value={formFields.phoneNumberOne}
                                 required={true}
 
                             />

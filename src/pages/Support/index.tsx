@@ -1,4 +1,4 @@
-import Tickets from "../components/Support";
+import Tickets from "../../components/Support/Tickets";
 
 export default function Support() {
     return (

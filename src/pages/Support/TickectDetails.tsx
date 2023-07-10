@@ -1,4 +1,4 @@
-import Details from '../components/Support/Details'
+import Details from '../../components/Support/Details'
 
 
 type Props = {}

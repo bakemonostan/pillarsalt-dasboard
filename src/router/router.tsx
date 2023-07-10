@@ -17,10 +17,13 @@ import {
   BranchLocation,
   BranchReport,
   BranchTranactions,
+  NewTicket,
+  TickectDetails
 } from "../pages";
 import RootLayout from "../components/Layout/RootLayout";
 import ProtectedRoutes from "../components/Guards/ProtectedRoutes";
 import PublicRoutes from "../components/Guards/PublicRoutes";
+import ErrorPage from "../components/Error/ErrorPage";
 
 
 export const router = createBrowserRouter(
@@ -32,10 +35,13 @@ export const router = createBrowserRouter(
           <Route path="branch" element={<Branch />} />
           <Route path="profile" element={<Profile />} />
           <Route path="support" element={<Support />} />
+          <Route path="support/:id" element={<TickectDetails />} />
+          <Route path="support/new-ticket" element={<NewTicket />} />
           <Route path="wallet" element={<Wallet />} />
           <Route path="branch/branch-location" element={<BranchLocation />} />
           <Route path="branch/branch-report" element={<BranchReport />} />
           <Route path="branch/" element={<BranchTranactions />} />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       </Route>
       <Route path="/login">

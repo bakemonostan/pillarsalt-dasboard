@@ -1,10 +1,5 @@
 import { create } from "zustand";
-import {
-  BankTransaction,
-  MerchantDashboard,
-  TransactionHistory,
-  WalletStore,
-} from "../types/wallet";
+import { MerchantDashboard, WalletStore } from "../types/wallet";
 import { merchantApi } from "../config/api";
 import { handleApiRequest } from "../utils/handelRequest";
 
@@ -28,6 +23,20 @@ export const useWalletStore = create<WalletStore>((state) => ({
     await handleApiRequest(state, apiRequest, setState);
   },
   getBankTransaction: async () => {},
-  fundWallet: async (amount: number) => {},
-  withdraw: async (amount: number) => {},
+
+  // Fund and Withdraw
+  fundWallet: async (amount: number) => {
+    const apiRequest = merchantApi.post("/Wallet/fund-wallet", { amount });
+    const setState = (merchantDashboard: MerchantDashboard) => {
+      state({ merchantDashboard });
+    };
+    await handleApiRequest(state, apiRequest, setState);
+  },
+  withdraw: async (amount: number) => {
+    const apiRequest = merchantApi.post("/Wallet/withdraw", { amount });
+    const setState = (merchantDashboard: MerchantDashboard) => {
+      state({ merchantDashboard });
+    };
+    await handleApiRequest(state, apiRequest, setState);
+  },
 }));

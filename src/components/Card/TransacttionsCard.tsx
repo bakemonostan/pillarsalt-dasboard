@@ -4,7 +4,6 @@ import { capitalizeFirst } from "../../utils/formatWord";
 type Props = {}
 export default function TransCard({ }: Props) {
   const { transactionHistory } = useBranchStore();
-  console.log(transactionHistory ? transactionHistory : 'no transaction history')
   return (
 
     <>

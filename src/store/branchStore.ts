@@ -20,7 +20,7 @@ export const useBranchStore = create<BranchStore>((state) => ({
       const allBranches = response?.data.data;
       state({ allBranches });
     } catch (error) {
-      console.log(error);
+      error;
     }
   },
 
@@ -34,7 +34,7 @@ export const useBranchStore = create<BranchStore>((state) => ({
       const transactionHistory = response?.data.data;
       state({ transactionHistory });
     } catch (error) {
-      console.log(error);
+      error;
     }
   },
 }));

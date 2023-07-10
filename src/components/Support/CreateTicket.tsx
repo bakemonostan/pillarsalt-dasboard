@@ -1,15 +1,45 @@
 import { Link } from 'react-router-dom'
 import Input from '../Form/Input'
 import arrow from '/images/arrow-down.svg'
+import { useTicketStore } from '../../store/ticketStore'
+import { merchantApi } from '../../config/api'
+import { useRef, useState } from 'react'
+import Button from '../Button/Button'
 
 type Props = {}
 export default function CreateTicket({ }: Props) {
+    const [desc, setDesc] = useState('')
+    const [email, setEmail] = useState('')
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try {
+            const res = await merchantApi.post('Ticket/create-ticket', {
+                ticketTittle: 'Testing',
+                description: desc,
+                phoneNumber: '08012345678',
+                email: 'soscreation@gmail.com',
+                ticketPriority: 1,
+                ticketType: 1,
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        setDesc('')
+
+    }
+
+
+
+
     return (
         <div className='h-screen space-y-16 pt-10'>
             <Link to='/support' className='border p-2 rounded-md px-4'>
                 Back to Ticket
             </Link>
-            <form className="bg-white rounded-md border px-12 py-10 space-y-7">
+            <form className="bg-white rounded-md border px-12 py-10 space-y-7"
+                onSubmit={handleSubmit}
+            >
                 <div>
                     <h3>Create a new ticket</h3>
                 </div>
@@ -23,39 +53,48 @@ export default function CreateTicket({ }: Props) {
                             name=""
                             classes='w-[17rem]'
                             label="Customer Mail"
-                            value=""
-                            onchange={() => { }}
+                            value={email}
+                            onchange={(e) => setEmail(e.target.value)}
+                            required={true}
                         />
                     </div>
 
 
                     <div className="mt-auto">
-                        <h3>Request Ticket Type</h3>
-                        <div className="border p-2.5 px-3 rounded-md w-[17rem] ">
-                            <p className="flex items-center justify-between">
-                                <span>
-                                    Failed transfer
-                                </span>
-                                <span>
-                                    <img src={arrow} alt="" />
-                                </span>
-                            </p>
+                        <div>
+                            <label htmlFor="ticketType" className="block text-sm font-medium leading-6 text-gray-900">
+                                Request Ticket Type
+                            </label>
+                            <select
+                                id="ticketType"
+                                name="ticketType"
+                                className="mt-2 block  w-[17rem] rounded-md border-0 py-2.5 px-5 text-gray-400 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-gray-400 sm:text-sm sm:leading-6"
+                                defaultValue="Failed Transfer"
+                                required
+                            >
+                                <option>Failed Transfer</option>
+                                <option>Unathourized Transfer</option>
+                                <option>Others</option>
+                            </select>
                         </div>
                     </div>
-
                     <div className="mt-auto">
-                        <h3>
-                            Status
-                        </h3>
-                        <div className="border p-2.5 px-3 rounded-md w-[17rem] mt-auto">
-                            <p className="flex items-center justify-between">
-                                <span>
-                                    On-going
-                                </span>
-                                <span>
-                                    <img src={arrow} alt="" />
-                                </span>
-                            </p>
+                        <div>
+                            <label htmlFor="status" className="block text-sm font-medium leading-6 text-gray-900">
+                                Status
+                            </label>
+                            <select
+                                id="status"
+                                name="status"
+                                className="mt-2 block w-[17rem] rounded-md border-0 py-2.5 px-5 text-gray-400 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-gray-400 sm:text-sm sm:leading-6"
+                                defaultValue="Ongoing"
+                            >
+                                <option >
+                                    Ongoing
+                                </option>
+                                <option>Completed</option>
+                                <option>New</option>
+                            </select>
                         </div>
                     </div>
 
@@ -67,9 +106,18 @@ export default function CreateTicket({ }: Props) {
                     ticket type">
                         Request Ticket Type
                     </label>
-                    <textarea placeholder="Enter your reply here" className="border resize-none h-[15rem] p-3">
-
+                    <textarea placeholder="Enter your reply here" className="border resize-none h-[15rem] p-3"
+                        value={desc}
+                        onChange={(e) => setDesc(e.target.value)}
+                    >
                     </textarea>
+                </div>
+                <div className='w-40 ml-auto'>
+                    <Button
+                        type='submit'
+                        variant='primary'
+                        label='Submit Request'
+                    />
                 </div>
             </form>
         </div>

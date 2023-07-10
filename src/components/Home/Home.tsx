@@ -8,42 +8,6 @@ import { formatCurrency } from "../../utils/formatCurrency"
 
 type Props = {}
 export default function Home({ }: Props) {
-    const cards = [
-        {
-            id: "82eb99a1-6637-435a-a024-5d8cc9f90fe2",
-            title: "Current Balance",
-            amount: "₦12,750,000",
-            percentage: "15%",
-            lastMonth: "Last month",
-            isRaising: true,
-        },
-        {
-            id: "9bd44b34-3ebe-4fff-b386-5d42b2318d5e",
-            title: "Total Transaction ",
-            amount: "₦23,4892",
-            percentage: "15%",
-            lastMonth: "Last month",
-            isRaising: true,
-        },
-        {
-            id: "224770f4-02be-442d-8bce-2e7426ca9883",
-            title: "Total Withdrawal",
-            amount: "₦12,750,000",
-            percentage: "15%",
-            lastMonth: "Last month",
-            isRaising: false,
-        },
-        {
-            id: "91699973-7f80-4bd2-a58a-34462ca9adc2",
-            title: "Total Branches",
-            amount: "1,291",
-            percentage: "15%",
-            lastMonth: "Last month",
-            isRaising: true,
-        },
-
-    ]
-    const { logout, random } = useAuthStore()
     const {
         currentBalance, getCurrentBalance, getTotalBranches, getTotalTransactions, getTotalWithdrawals, isLoading, totalTransactions, totalbranches, totalwithdrawals, activeWallets, dormantWallets, getActiveWallets, getDormantWallets, getNewWallets, newWallets, getRegisteredWallets, registeredWallets
     } = useDashboardStore()
@@ -62,8 +26,6 @@ export default function Home({ }: Props) {
 
     return (
         <div className="flex flex-col space-y-6">
-            <button onClick={logout}>log out</button>
-            <button onClick={random}>login</button>
             <div className="pt-10">
                 <h1 className="font-bold text-[#2C3C34] text-2xl"> Dashboard</h1>
             </div >

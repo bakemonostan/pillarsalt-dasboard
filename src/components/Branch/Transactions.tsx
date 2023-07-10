@@ -4,6 +4,9 @@ import Table from "../Table"
 import TransactionCard from "../Wallet/TransactionCard"
 import { useBranchStore } from "../../store/branchStore"
 import Card from "../Card/CardMain"
+import TransactionBody from "../Table/TransactionBody"
+import Pagination from "../Paginate"
+import { useState } from "react"
 
 const cards = [
     {
@@ -41,25 +44,42 @@ const cards = [
 
 ]
 
-const stuff = [1, 2, 3]
 
 type Props = {}
 export default function Transactions({ }: Props) {
+    const { transactionHistory } = useBranchStore();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [rowsPerPage] = useState(5);
 
+    const indexOfLastCard = currentPage * rowsPerPage;
+    const indexOfFirstCard = indexOfLastCard - rowsPerPage;
+    const currentTransactions = transactionHistory.slice(indexOfFirstCard, indexOfLastCard);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
     return (
         <div className="flex flex-col space-y-6">
             <div className="pt-10 flex items-center justify-between gap-5">
                 <h1 className="font-bold text-[#2C3C34] lg:text-2xl"> Branch Transactions</h1>
-                <div className="border p-2.5 px-3 rounded-md w-full md:w-[17rem] ">
-                    <p className="flex items-center justify-between">
-                        <span>
-                            Failed transfer
-                        </span>
-                        <span>
-                            <img src={arrow} alt="" />
-                        </span>
-                    </p>
+                <div className="">
+                    <label htmlFor="date-filter" className="hidden text-sm font-medium leading-6 text-gray-900">
+                        date-filter
+                    </label>
+                    <select
+                        id="date-filter"
+                        name="date-filter"
+                        className="mt-2 block border p-2.5 px-3 rounded-md w-full md:w-[17rem]  text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-gray-400 sm:text-sm sm:leading-6"
+                        defaultValue="This month"
+                    >
+                        <option>This month</option>
+                        <option>Last month</option>
+                        <option>Last 2 months</option>
+                        <option>This year</option>
+                        <option>Last year</option>
+                    </select>
                 </div>
+
             </div >
             <section className="hide flex gap-5 overflow-x-scroll ml-3 py-3">
                 {
@@ -80,8 +100,41 @@ export default function Transactions({ }: Props) {
                         See all
                     </p>
                 </div>
-                <Table isTransaction={true} />
+                <div className="overflow-x-auto hidden xl:block">
+                    <table className="table-auto border-collapse w-full">
+
+
+                        <thead>
+                            <tr className="text-center bg-[#ECF2BA] w-full py-3">
+                                <th className="px-4 py-2">S/N</th>
+                                <th className="px-4 py-2">Date</th>
+                                <th className="px-4 py-2">Transaction Reference</th>
+                                <th className="px-4 py-2">Depositor</th>
+                                <th className="px-4 py-2">BranchID</th>
+                                <th className="px-4 py-2">BranchName</th>
+                                <th className="px-4 py-2">Amount</th>
+                                <th className="px-4 py-2">Status</th>
+                                <th className="px-4 py-2">Narration</th>
+                                <th className="px-4 py-2 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        {
+                            currentTransactions.map((transaction, index) => {
+                                return (
+                                    <TransactionBody {...transaction} key={index} />
+                                )
+                            })
+                        }
+                    </table>
+                </div>
+
                 <Card page="transaction" />
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={transactionHistory.length / rowsPerPage}
+                    onPageChange={handlePageChange}
+
+                />
             </section>
         </div>
     )
