@@ -5,7 +5,8 @@
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames":true
+    "forceConsistentCasingInFileNames":true,
+     "typeRoots": ["./node_modules/@types", "./typings"]
   },
   "include": ["vite.config.ts"]
 }

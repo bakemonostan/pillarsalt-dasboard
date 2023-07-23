@@ -40,7 +40,7 @@ export default function Navbar({ }: Props) {
          border-b border-b-[#E0E0E0] py-8 h-[4rem] 
          xl:flex items-center"
             >
-                <div className="flex items-center justify-between px-5  w-[85%]">
+                <div className="flex items-center justify-between px-16  w-[85%]">
                     <Input type="search" name="search" onchange={() => { }} placeholder="Search anything here..." required={false} value="" classes="w-[70%] rounded-sm" />
                 </div>
                 <div className="flex gap-8 items-center">

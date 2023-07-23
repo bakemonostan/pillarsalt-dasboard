@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAuthStore } from "../../store/auth/auth"
 import { useDashboardStore } from "../../store/dashboardStore"
 import Card from "./Cards"
@@ -6,12 +6,17 @@ import ChartSection from './ChartSection'
 import SystemHealth from "./SystemHealth"
 import { formatCurrency } from "../../utils/formatCurrency"
 
+
+
 type Props = {}
 export default function Home({ }: Props) {
     const {
-        currentBalance, getCurrentBalance, getTotalBranches, getTotalTransactions, getTotalWithdrawals, isLoading, totalTransactions, totalbranches, totalwithdrawals, activeWallets, dormantWallets, getActiveWallets, getDormantWallets, getNewWallets, newWallets, getRegisteredWallets, registeredWallets
+        currentBalance, getCurrentBalance,
+        getTotalBranches, getTotalTransactions, getTotalWithdrawals,
+        isLoading, totalTransactions, totalbranches, totalwithdrawals,
+        activeWallets, dormantWallets, getActiveWallets, getDormantWallets,
+        getNewWallets, newWallets, getRegisteredWallets, registeredWallets
     } = useDashboardStore()
-
 
     useEffect(() => {
         getCurrentBalance()
@@ -23,6 +28,7 @@ export default function Home({ }: Props) {
         getNewWallets()
         getRegisteredWallets()
     }, [])
+
 
     return (
         <div className="flex flex-col space-y-6">

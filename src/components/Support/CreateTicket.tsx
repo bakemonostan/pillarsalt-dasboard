@@ -18,12 +18,12 @@ export default function CreateTicket({ }: Props) {
                 ticketTittle: 'Testing',
                 description: desc,
                 phoneNumber: '08012345678',
-                email: 'soscreation@gmail.com',
+                email: email,
                 ticketPriority: 1,
                 ticketType: 1,
             })
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
         setDesc('')
 
@@ -68,6 +68,7 @@ export default function CreateTicket({ }: Props) {
                             <select
                                 id="ticketType"
                                 name="ticketType"
+                                aria-required="true"
                                 className="mt-2 block  w-[17rem] rounded-md border-0 py-2.5 px-5 text-gray-400 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-gray-400 sm:text-sm sm:leading-6"
                                 defaultValue="Failed Transfer"
                                 required
@@ -109,6 +110,7 @@ export default function CreateTicket({ }: Props) {
                     <textarea placeholder="Enter your reply here" className="border resize-none h-[15rem] p-3"
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
+                        required
                     >
                     </textarea>
                 </div>

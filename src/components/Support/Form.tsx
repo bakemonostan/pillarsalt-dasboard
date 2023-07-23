@@ -25,7 +25,6 @@ export default function Form({ }: Props) {
                 ticketType: 1,
             })
         } catch (error) {
-            console.log(error)
         }
         setDesc('')
 
@@ -42,13 +41,14 @@ export default function Form({ }: Props) {
 
             <div className="flex flex-wrap gap-3 justify-between items-baseline">
                 <div>
-                    <Input isdisabled={true} type="text"
+                    <Input
+                        isdisabled={true}
+                        type="text"
                         placeholder={ticketDetails.email}
                         name="" classes='w-full'
                         label="Customer Mail"
                         value=""
                         onchange={() => { }}
-
                     />
                 </div>
 

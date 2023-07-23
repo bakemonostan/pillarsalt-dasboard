@@ -28,7 +28,7 @@ export default function Sidebar() {
     return (
         <div className="hidden absolute xl:flex flex-col  w-[15.563rem] h-[100vh] xl:border-r xl:border-r-[#E0E0E0] py-5">
             <div>
-                <img src={HomeLogo} alt="Logo" className="relative right-3" />
+                <img src={HomeLogo} alt="Logo" className="relative -right-3" />
             </div>
             <div className="pt-14 font-medium">
                 <ul className="  flex flex-col gap-5 text-[#959595] relative ">
