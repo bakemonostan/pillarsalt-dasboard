@@ -12,7 +12,7 @@ const links = [
     { name: 'Branch', icon: '/images/branch.svg', href: 'branch', showIcon: true, nestedLink: false },
     { name: 'Branch Location', icon: '/images/branch.svg', href: 'branch/branch-location', nestedLink: true },
     { name: 'Branch Report', icon: '/images/branch.svg', href: 'branch/branch-report', nestedLink: true },
-    { name: 'Customer Support', icon: '/images/faq.svg', href: 'support', nestedLink: false },
+    // { name: 'Customer Support', icon: '/images/faq.svg', href: 'support', nestedLink: false },
     { name: 'Profile', icon: '/images/profile.svg', href: 'profile', nestedLink: false },
 ];
 

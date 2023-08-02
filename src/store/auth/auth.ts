@@ -8,12 +8,15 @@ import { authApi, merchantApi } from "../../config/api";
 export const useFormStore = create<User & Actions>()((state) => ({
   email: "soscreation2020@gmail.com",
   password: "Qwerty123456*",
+  // email: "",
+  // password: "",
   setEmail: (email) => state(() => ({ email })),
   setPassword: (password) => state(() => ({ password })),
   resetForm: () => state({ email: "", password: "" }),
 }));
 
 // Zustand store
+
 export const useAuthStore = create<AuthState>()(
   devtools(
     persist(

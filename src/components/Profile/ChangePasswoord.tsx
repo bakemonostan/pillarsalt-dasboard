@@ -2,15 +2,61 @@ import { useProfileStore } from "../../store/profileStore";
 import { email_validation, password_validation } from "../../utils/inputValidations";
 import Button from "../Button/Button";
 import Input from "../Form/Input";
-import profileIcon from '/images/icon-holder.svg'
+import { useChangePasswordStore } from "../../store/auth/changePassword";
+import { motion } from "framer-motion";
+
 
 
 export default function ChangePasswoord() {
     const { setView } = useProfileStore()
+    const {
+        passwords,
+        setOldPassword,
+        setNewPasswordValue,
+        setConfirmPassword,
+        setNewPassword,
+        error,
+        errorMessage,
+    } = useChangePasswordStore()
+    const handleChangeOldPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setOldPassword(e.target.value);
+    };
+
+    const handleChangeNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewPasswordValue(e.target.value);
+    };
+
+    const handleChangeConfirmPassword = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setConfirmPassword(e.target.value);
+    };
+
+    const handleCancel = () => {
+        // Clear all password fields
+        setOldPassword("");
+        setNewPasswordValue("");
+        setConfirmPassword("");
+
+        // Go back to a different view
+        setView("profile");
+    };
+
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        await setNewPassword(passwords.oldPassword, passwords.newPassword, passwords.confirmPassword);
+        // Clear all password fields
+        setOldPassword("");
+        setNewPasswordValue("");
+        setConfirmPassword("");
+
+    };
+
     return (
         <>
             <div className="flex items-center justify-between">
-                <h1 className="text-headers font-extrabold text-xl">
+                <h1 className="text-xl font-extrabold text-headers">
                     Security
                 </h1>
                 <div onClick={() => { setView("profile") }}>
@@ -18,35 +64,47 @@ export default function ChangePasswoord() {
                 </div>
             </div>
 
-            <div className="mx-auto 2xl:mx-0 sm:w-3/5 space-y-5">
-                <form >
-                    <div className="space-y-5 pb-8">
+            <div className="mx-auto space-y-5 2xl:mx-0 sm:w-3/5">
+                <form onSubmit={handleSubmit}>
+                    <div className="pb-8 space-y-5">
                         <Input
-                            onchange={() => { }}
-                            value=""
                             {...password_validation}
+                            value={passwords.oldPassword}
+                            onchange={handleChangeOldPassword}
                             label="Old Password"
                             placeholder="Enter Old Password"
                         />
                         <Input
-                            onchange={() => { }}
-                            value=""
+                            value={passwords.newPassword}
+                            onchange={handleChangeNewPassword}
                             {...password_validation}
                             label="New Password"
                             placeholder="Enter new password"
                             type="password"
                         />
                         <Input
-                            onchange={() => { }}
-                            value=""
                             {...password_validation}
+                            value={passwords.confirmPassword}
+                            onchange={handleChangeConfirmPassword}
                             label="New Password"
                             placeholder="Enter new password again"
                             type="password"
                         />
+
+                        {error && <motion.span className="text-xs text-red-500"
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                        >{errorMessage}
+                        </motion.span>}
                     </div>
-                    <div className="flex gap-2 w-full md:w-1/4 md:ml-auto ">
-                        <button className="border border-greenMain bg-transparent text-greenMain rounded-md px-3 cursor-pointer" type="button" >Cancel</button>
+                    <div className="flex w-full gap-2 md:w-1/4 md:ml-auto ">
+                        <button
+                            className="px-3 bg-transparent border rounded-md cursor-pointer border-greenMain text-greenMain"
+                            type="button"
+                            onClick={handleCancel}
+                        >
+                            Cancel
+                        </button>
                         <Button label="Save Changes" type="submit" variant="primary" ></Button>
                     </div>
                 </form>

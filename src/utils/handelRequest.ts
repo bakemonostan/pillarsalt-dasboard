@@ -13,3 +13,23 @@ export const handleApiRequest = async (
     error;
   }
 };
+
+export const handleApiRequestTwo = async (
+  state: any,
+  apiRequest: Promise<any>,
+  setState: any,
+  setError: any
+) => {
+  try {
+    state({ loading: true });
+    const response = await apiRequest;
+    const { data } = response.data;
+    setState(data);
+    state({ loading: false });
+    setError(false);
+  } catch (error) {
+    error;
+    state({ loading: false });
+    setError(true);
+  }
+};

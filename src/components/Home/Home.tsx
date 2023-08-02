@@ -21,8 +21,8 @@ export default function Home({ }: Props) {
     useEffect(() => {
         getCurrentBalance()
         getTotalBranches()
-        getTotalTransactions()
-        getTotalWithdrawals()
+        // getTotalTransactions()
+        // getTotalWithdrawals()
         getActiveWallets()
         getDormantWallets()
         getNewWallets()
