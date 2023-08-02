@@ -6,8 +6,8 @@ import axios from "axios";
 import { authApi, merchantApi } from "../../config/api";
 
 export const useFormStore = create<User & Actions>()((state) => ({
-  email: "soscreation2020@gmail.com",
-  password: "Qwerty123456*",
+  email: "",
+  password: "",
   // email: "",
   // password: "",
   setEmail: (email) => state(() => ({ email })),
