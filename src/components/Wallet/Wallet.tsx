@@ -42,24 +42,24 @@ export default function Walletin({ }: Props) {
 
             }
 
-            <h1 className="text-xl font-extrabold text-headers pt-10">Wallet Management</h1>
-            <section className="flex flex-col flex-wrap lg:flex-row gap-5 py-4 xl:flex-nowrap ">
+            <h1 className="pt-10 text-xl font-extrabold text-headers">Wallet Management</h1>
+            <section className="flex flex-col flex-wrap gap-5 py-4 lg:flex-row xl:flex-nowrap ">
                 <Cards title="Account Details">
-                    <div className='flex justify-between items-center p-3'>
+                    <div className='flex items-center justify-between p-3'>
                         <div className="space-y-1.5">
-                            <p className="text-headersTwo text-2xl font-bold">{merchantDashboard.accountName}</p>
-                            <p className="truncate w-40 text-grayTwo text-sm">Wallet ID: {merchantDashboard.walletId} </p>
+                            <p className="text-2xl font-bold text-headersTwo">{merchantDashboard.accountName}</p>
+                            <p className="w-40 text-sm truncate text-grayTwo">Wallet ID: {merchantDashboard.walletId} </p>
                         </div>
                         <div>
                             <img src={profileIcon} alt="" className='' />
                         </div>
                     </div>
                 </Cards>
-                <Cards title="Account Balance">
-                    <div className='flex justify-between items-center p-3'>
+                {/* <Cards title="Account Balance">
+                    <div className='flex items-center justify-between p-3'>
                         <div className="space-y-1.5">
-                            <p className="text-headersTwo text-2xl font-bold">{formatCurrency(merchantDashboard.accountBalance ?? '0')}</p>
-                            <div className="flex gap-1 justify-between">
+                            <p className="text-2xl font-bold text-headersTwo">{formatCurrency(merchantDashboard.accountBalance ?? '0')}</p>
+                            <div className="flex justify-between gap-1">
 
                                 <button type="button" className="bg-greenMain text-white rounded-md text-xs py-1.5 px-3" onClick={() => { showModal('fund') }} >
                                     Fund wallet
@@ -76,15 +76,15 @@ export default function Walletin({ }: Props) {
                             <img src={walletIcon} alt="" className='' />
                         </div>
                     </div>
-                </Cards>
+                </Cards> */}
                 <Cards title="Bank Account">
-                    <div className='flex gap-3 items-center p-3'>
+                    <div className='flex items-center gap-3 p-3'>
                         <div>
                             <img src={bank} alt="" className='' />
                         </div>
                         <div className="space-y-1.5">
-                            <p className="text-headersTwo text-2xl font-bold">Zenith Bank</p>
-                            <p className="text-grayTwo text-sm">Account Connected</p>
+                            <p className="text-2xl font-bold text-headersTwo">Zenith Bank</p>
+                            <p className="text-sm text-grayTwo">Account Connected</p>
                         </div>
                     </div>
                 </Cards>
@@ -95,15 +95,15 @@ export default function Walletin({ }: Props) {
                 transactionHistory.length > 0 ?
                     <section className="flex flex-col gap-5 py-4">
                         <div className="flex justify-between md:w-[23rem] items-center md:mx-auto xl:w-full">
-                            <h2 className="font-bold text-xl text-headers">
+                            <h2 className="text-xl font-bold text-headers">
                                 Tranaction History
                             </h2>
-                            <p className="text-sm text-greenMain font-bold cursor-pointer">
+                            <p className="text-sm font-bold cursor-pointer text-greenMain">
                                 See all
                             </p>
                         </div>
-                        <div className="overflow-x-auto hidden xl:block">
-                            <table className="table-auto border-collapse w-full">
+                        <div className="hidden overflow-x-auto xl:block">
+                            <table className="w-full border-collapse table-auto">
                                 <thead className="text-center">
                                     <tr className=" bg-[#ECF2BA] w-full py-3">
                                         <th className="px-4 py-2">S/N</th>

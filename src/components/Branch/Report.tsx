@@ -5,14 +5,16 @@ import Card from '../Card/CardMain';
 import { useBranchStore } from '../../store/branchStore';
 import BranchReportTable from '../Table/BranchReportTable';
 import Pagination from '../Paginate';
+import BranchModal from '../ModalsAndPopups/BranchModal';
 
 export default function Report() {
-    const { allBranches } = useBranchStore();
+    const { allBranches, setModal, showModal } = useBranchStore();
     const [searchText, setSearchText] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage] = useState(5);
+
 
     const filteredBranches = allBranches.filter((branch) => {
         // Filter by search text
@@ -48,15 +50,17 @@ export default function Report() {
 
     return (
         <div className="flex flex-col space-y-6">
-            <div className='flex gap-5 flex-col justify-between items center pb-8 md:flex-row'>
+            {showModal && <BranchModal title="Branch Request" />}
+            <div className='flex flex-col justify-between gap-5 pb-8 items center md:flex-row'>
                 <div>
-                    <h1 className='text-headers font-bold text-2xl'>Branch Management</h1>
+                    <h1 className='text-2xl font-bold text-headers'>Branch Management</h1>
                 </div>
                 <div>
                     <Button
                         label='Branch Request'
                         type='button'
                         variant='primary'
+                        onClick={() => setModal(true)}
                     />
                 </div>
             </div>
@@ -95,15 +99,15 @@ export default function Report() {
             </section>
             <section className="flex flex-col gap-5 py-4">
                 <div className="flex justify-between md:w-[23rem] items-center md:mx-auto xl:w-full">
-                    <h2 className="font-bold text-xl text-headers">
+                    <h2 className="text-xl font-bold text-headers">
                         Branch List
                     </h2>
-                    <p className="text-sm text-greenMain font-bold cursor-pointer">
+                    <p className="text-sm font-bold cursor-pointer text-greenMain">
                         See all
                     </p>
                 </div>
-                <div className="overflow-x-auto hidden xl:block">
-                    <table className="table-auto border-collapse w-full">
+                <div className="hidden overflow-x-auto xl:block">
+                    <table className="w-full border-collapse table-auto">
                         <thead>
                             <tr className="text-center bg-[#ECF2BA] w-full py-3">
                                 <th className="px-4 py-2">S/N</th>

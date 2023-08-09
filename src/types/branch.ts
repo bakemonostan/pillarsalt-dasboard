@@ -1,10 +1,18 @@
 export interface BranchStore {
   allBranches: AllBranches[];
+  isFormLoading: boolean;
   isLoading: boolean;
+  error: boolean;
+  showModal: boolean;
+  setModal: (value: boolean) => void;
   transactionHistory: BranchTransactionHistory[];
   getAllBranches: () => Promise<void>;
   getBranch?: (id: number, user: string) => Promise<AllBranches>;
-  getBranchRequest?: (id: number) => Promise<BranchRequest>;
+  getBranchRequest: (
+    id: number | undefined,
+    userName: string | undefined,
+    locationName: string | undefined
+  ) => Promise<void>;
   getBranchTransactionHistory: () => Promise<void>;
 }
 

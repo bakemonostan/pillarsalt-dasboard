@@ -19,19 +19,19 @@ export default function BranchLocation() {
     const location: LatLngExpression = [6.6018, 3.3515];
     return (
         <>
-            <div className='hidden lg:flex justify-between items center pb-8'>
+            <div className='justify-between hidden pb-8 lg:flex items center'>
                 <div>
-                    <h1 className='text-headers font-bold text-2xl'>Branch Mapping</h1>
+                    <h1 className='text-2xl font-bold text-headers'>Branch Mapping</h1>
                 </div>
-                <div>
+                {/* <div>
                     <Button
                         label='Branch Request'
                         type='button'
                         variant='primary'
                     />
-                </div>
+                </div> */}
             </div>
-            <div className='h-screen relative w-full mx-auto lg:flex lg:flex-row-reverse  lg:bg-white lg:p-5 lg:rounded-md'>
+            <div className='relative w-full h-screen mx-auto lg:flex lg:flex-row-reverse lg:bg-white lg:p-5 lg:rounded-md'>
 
                 <div className='w-full absolute lg:w-[30%] top-5 z-50 px-5 lg:relative lg:top-0'>
                     <Input type='search' onchange={() => { }}
@@ -44,7 +44,7 @@ export default function BranchLocation() {
                         center={location}
                         zoom={10}
                         scrollWheelZoom={false}
-                        className='h-full w-full relative z-10 lg:block '
+                        className='relative z-10 w-full h-full lg:block '
                     >
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                         <Marker position={location} icon={icon} />

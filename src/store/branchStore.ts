@@ -9,9 +9,12 @@ import { merchantApi } from "../config/api";
 
 export const useBranchStore = create<BranchStore>((state) => ({
   isLoading: false,
+  isFormLoading: false,
   allBranches: [],
   transactionHistory: [],
-
+  error: false,
+  showModal: false,
+  setModal: (value: boolean) => state({ showModal: value }),
   getAllBranches: async () => {
     try {
       state({ isLoading: true });
@@ -34,6 +37,27 @@ export const useBranchStore = create<BranchStore>((state) => ({
       const transactionHistory = response?.data.data;
       state({ transactionHistory });
     } catch (error) {
+      error;
+    }
+  },
+
+  getBranchRequest: async (
+    id: number | undefined,
+    userName: string | undefined,
+    locationName: string | undefined
+  ) => {
+    try {
+      state({ isFormLoading: true });
+      state({ error: false });
+      await merchantApi.post("Branch/branch-request", {
+        branchId: id,
+        userName: userName,
+        locationName: locationName,
+      });
+      state({ isFormLoading: false });
+    } catch (error) {
+      state({ isFormLoading: false });
+      state({ error: true });
       error;
     }
   },

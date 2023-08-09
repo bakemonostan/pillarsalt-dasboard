@@ -12,6 +12,8 @@ export default function EditProfile() {
     const { profileId } = useAuthStore();
     const { acquirerId, merchantRef } = userProfile;
 
+    console.log(profileId, acquirerId, merchantRef)
+
     const handleInput = (field: string, value: string) => {
         setFormField(field, value)
     }
@@ -30,15 +32,15 @@ export default function EditProfile() {
     return (
         <>
             <div className="flex items-center justify-between">
-                <h1 className="text-headers font-extrabold text-xl">
+                <h1 className="text-xl font-extrabold text-headers">
                     Profile
                 </h1>
                 <div onClick={() => { setView("change") }}>
-                    <Button label="Change Password" type="button" variant="primary"  ></Button>
+                    <Button label="Change Password" type="button" variant="primary" ></Button>
                 </div>
             </div>
 
-            <div className="w-full  lg:w-full lg:max-w-full bg-white mx-auto xl:mx-0 shadow-lg rounded-md p-4 space-y-4 py-8 pb-24">
+            <div className="w-full p-4 py-8 pb-24 mx-auto space-y-4 bg-white rounded-md shadow-lg lg:w-full lg:max-w-full xl:mx-0">
                 {/* head */}
                 <div className="flex items-center gap-3 pb-5">
                     <img src={profileIcon} alt="" />
@@ -46,16 +48,16 @@ export default function EditProfile() {
                 </div>
 
                 <div className="space-y-5">
-                    <h2 className="text-headers font-extrabold text-sm lg:text-xl">
+                    <h2 className="text-sm font-extrabold text-headers lg:text-xl">
                         Personal Information
                     </h2>
                     <hr />
                 </div>
 
                 <form className="" onSubmit={handleSubmit}>
-                    <div className="w-full   md:w-3/5 space-y-5">
-                        <div className=" flex w-full flex-col">
-                            <div className="flex flex-wrap gap-2 w-full md:gap-8  md:flex-nowrap">
+                    <div className="w-full space-y-5 md:w-3/5">
+                        <div className="flex flex-col w-full ">
+                            <div className="flex flex-wrap w-full gap-2 md:gap-8 md:flex-nowrap">
                                 <Input label="First name"
                                     onchange={(e) => { handleInput('firstName', e.target.value) }}
                                     placeholder="First name"
@@ -73,7 +75,7 @@ export default function EditProfile() {
 
                                 />
                             </div>
-                            <div className="flex flex-wrap gap-2 w-full md:gap-8  md:flex-nowrap">
+                            <div className="flex flex-wrap w-full gap-2 md:gap-8 md:flex-nowrap">
                                 <Input
                                     label="Contact person"
                                     onchange={(e) => { handleInput('contactPerson', e.target.value) }}
@@ -114,7 +116,7 @@ export default function EditProfile() {
 
                             />
                         </div>
-                        <div className="flex flex-wrap gap-2 w-full md:gap-8  md:flex-nowrap">
+                        <div className="flex flex-wrap w-full gap-2 md:gap-8 md:flex-nowrap">
                             <Input
                                 label="Phone number one"
                                 onchange={(e) => handleInput('phoneNumberOne', e.target.value)}
@@ -133,8 +135,8 @@ export default function EditProfile() {
                             />
                         </div>
 
-                        <div className="flex gap-2 w-full md:w-1/4 md:ml-auto ">
-                            <button className="border border-greenMain bg-transparent text-greenMain rounded-md px-3 cursor-pointer" type="button" onClick={() => { setView("profile") }}>Cancel</button>
+                        <div className="flex w-full gap-2 md:w-1/4 md:ml-auto ">
+                            <button className="px-3 bg-transparent border rounded-md cursor-pointer border-greenMain text-greenMain" type="button" onClick={() => { setView("profile") }}>Cancel</button>
                             <Button label="Save Changes" type="submit" variant="primary" ></Button>
                         </div>
                     </div>

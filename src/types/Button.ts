@@ -3,7 +3,7 @@ interface ButtonProps {
   label?: string;
   onClick?: () => void;
   isDisabled?: boolean;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "outline";
   children?: React.ReactNode;
 }
 
