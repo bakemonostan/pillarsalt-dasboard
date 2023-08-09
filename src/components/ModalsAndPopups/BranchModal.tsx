@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react"
 import ButtonProps from "../../types/Button"
 import Button from "../Button/Button"
 import close from '/images/close.svg'
-import { useModal } from "../../store/wallet"
 import { motion } from 'framer-motion'
 import { useBranchStore } from "../../store/branchStore"
 import { AllBranches } from "../../types/branch"
-import { merchantApi } from "../../config/api"
-import { get, set } from "react-hook-form"
 
 interface Props extends ButtonProps {
     title: React.ReactNode
@@ -16,7 +13,7 @@ interface Props extends ButtonProps {
 export default function BranchModal({ title, children }: Props) {
     const [selectedBranch, setSelectedBranch] = useState('' as string);
     const [selectedBranchData, setSelectedBranchData] = useState(null as AllBranches | null);
-    const { allBranches, isFormLoading, getBranchRequest, error, setModal } = useBranchStore();
+    const { allBranches, isFormLoading, getBranchRequest, error, setModal, success } = useBranchStore();
 
     const handleBranchSelection = (event: any) => {
         const selectedBranchName = event.target.value;
@@ -85,7 +82,8 @@ export default function BranchModal({ title, children }: Props) {
                         <div className="space-y-4">
                             <textarea name="" id="" className="w-full p-2 border rounded-md" cols={130} rows={6} placeholder="Provide comment here" />
                         </div>
-                        {error && <p className='text-red-500'>Please select a branch </p>}
+                        {error && <span className='text-sm font-semibold text-red-500'>Please select a branch </span>}
+                        {success && <span className='text-sm font-semibold text-greenMain'>Branch requested sent</span>}
                     </div>
 
                     <div className="px-4 py-3 space-y-4 sm:space-y-0 sm:gap-2 sm:ml-auto bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse sm:w-3/4">

@@ -6,6 +6,7 @@ import {
   BranchTransactionHistory,
 } from "../types/branch";
 import { merchantApi } from "../config/api";
+import { set } from "react-hook-form";
 
 export const useBranchStore = create<BranchStore>((state) => ({
   isLoading: false,
@@ -14,6 +15,7 @@ export const useBranchStore = create<BranchStore>((state) => ({
   transactionHistory: [],
   error: false,
   showModal: false,
+  success: false,
   setModal: (value: boolean) => state({ showModal: value }),
   getAllBranches: async () => {
     try {
@@ -49,15 +51,21 @@ export const useBranchStore = create<BranchStore>((state) => ({
     try {
       state({ isFormLoading: true });
       state({ error: false });
+
       await merchantApi.post("Branch/branch-request", {
         branchId: id,
         userName: userName,
         locationName: locationName,
       });
       state({ isFormLoading: false });
+      state({ success: true });
+      setTimeout(() => {
+        state({ success: false });
+      }, 3000);
     } catch (error) {
       state({ isFormLoading: false });
       state({ error: true });
+      state({ success: false });
       error;
     }
   },

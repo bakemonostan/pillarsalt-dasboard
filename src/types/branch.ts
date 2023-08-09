@@ -3,6 +3,7 @@ export interface BranchStore {
   isFormLoading: boolean;
   isLoading: boolean;
   error: boolean;
+  success: boolean;
   showModal: boolean;
   setModal: (value: boolean) => void;
   transactionHistory: BranchTransactionHistory[];
