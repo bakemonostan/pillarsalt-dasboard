@@ -14,7 +14,7 @@ export default function UserProfile() {
     return (
         <>
             <div className="flex items-center justify-between">
-                <h1 className="text-headers font-extrabold text-xl">
+                <h1 className="text-xl font-extrabold text-headers">
                     Profile
                 </h1>
                 <div onClick={() => { setView("update") }}>
@@ -23,7 +23,7 @@ export default function UserProfile() {
             </div>
 
 
-            <div className="w-full  lg:w-full lg:max-w-full bg-white mx-auto xl:mx-0 shadow-lg rounded-md p-4 space-y-4 py-8 pb-24">
+            <div className="w-full p-4 py-8 pb-24 mx-auto space-y-4 bg-white rounded-md shadow-lg lg:w-full lg:max-w-full xl:mx-0">
                 {/* head */}
                 {
                     isLoading ? <Loader /> :
@@ -34,38 +34,38 @@ export default function UserProfile() {
                             </div>
 
                             <div className="space-y-3">
-                                <h2 className="text-headers font-extrabold text-sm lg:text-xl">
+                                <h2 className="text-sm font-extrabold text-headers lg:text-xl">
                                     Personal Information
                                 </h2>
                                 <hr />
                             </div>
 
-                            <div className="flex gap-10 flex-wrap">
+                            <div className="flex flex-wrap gap-10">
 
                                 <div className="space-y-5">
-                                    <div className="text-sm space-x-6">
+                                    <div className="space-x-6 text-sm">
                                         <span className="text-grayTwo">Email:</span>
-                                        <span className="text-headers font-bold">{userProfile.email}</span>
+                                        <span className="font-bold text-headers">{userProfile.email}</span>
                                     </div>
-                                    <div className="text-sm space-x-6">
+                                    <div className="space-x-6 text-sm">
                                         <span className="text-grayTwo">Phone No. 1:</span>
-                                        <span className="text-headers font-bold">{userProfile.phone1}</span>
+                                        <span className="font-bold text-headers">{userProfile.phone1}</span>
                                     </div>
-                                    <div className="text-sm space-x-6">
+                                    <div className="space-x-6 text-sm">
                                         <span className="text-grayTwo">Country:</span>
-                                        <span className="text-headers font-bold">Nigeria</span>
+                                        <span className="font-bold text-headers">Nigeria</span>
                                     </div>
 
                                 </div>
 
                                 <div className="space-y-5">
-                                    <div className="text-sm space-x-6">
+                                    <div className="space-x-6 text-sm">
                                         <span className="text-grayTwo">Contact Person:</span>
-                                        <span className="text-headers font-bold">{userProfile.contactPerson}</span>
+                                        <span className="font-bold text-headers">{userProfile.contactPerson}</span>
                                     </div>
-                                    <div className="text-sm space-x-6">
+                                    <div className="space-x-6 text-sm">
                                         <span className="text-grayTwo">Phone No. 2:</span>
-                                        <span className="text-headers font-bold">{userProfile.phone2}</span>
+                                        <span className="font-bold text-headers">{userProfile.phone2}</span>
                                     </div>
 
                                 </div>

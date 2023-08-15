@@ -1,13 +1,14 @@
 import Form from "../../components/Form";
-import Input from "../../components/Form/Input";
-import { Link, Navigate } from "react-router-dom";
-import { email_validation, password_validation } from "../../utils/inputValidations";
+import { Link } from "react-router-dom";
 import { useAuthStore, useFormStore, useMerchantStore } from "../../store/auth/auth";
 import LeftSide from "../../components/Form/LeftSide";
 import User from "../../types/User";
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { toast } from 'react-toastify';
+import { useEffect } from "react";
+
 
 const schema = yup.object({
     email: yup.string().required(),
@@ -27,6 +28,9 @@ type Inputs = {
 
 
 export default function Login() {
+    const { getUserData } = useMerchantStore()
+    const { email, password, } = useFormStore();
+    const { login, loading, error, errorMsg } = useAuthStore()
     const {
         register,
         handleSubmit,
@@ -39,14 +43,19 @@ export default function Login() {
             },
             resolver: yupResolver(schema),
         }
-
     )
 
 
+    useEffect(() => {
+        if (error) {
+            notify();
+        }
+    }, [error]);
+    const notify = () => {
+        toast(errorMsg);
+        useAuthStore.setState({ error: false });
+    };
 
-    const { getUserData } = useMerchantStore()
-    const { email, password, setEmail, setPassword } = useFormStore();
-    const { login, loading } = useAuthStore()
     const onsubmit = async (data: Inputs) => {
         const user: User = { email, password }
         login(user)

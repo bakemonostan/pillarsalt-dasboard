@@ -83,7 +83,7 @@ export default function BranchModal({ title, children }: Props) {
                             <textarea name="" id="" className="w-full p-2 border rounded-md" cols={130} rows={6} placeholder="Provide comment here" />
                         </div>
                         {error && <span className='text-sm font-semibold text-red-500'>Please select a branch </span>}
-                        {success && <span className='text-sm font-semibold text-greenMain'>Branch requested sent</span>}
+                        {success && <span className='text-sm font-semibold text-greenMain'>Branch request sent</span>}
                     </div>
 
                     <div className="px-4 py-3 space-y-4 sm:space-y-0 sm:gap-2 sm:ml-auto bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse sm:w-3/4">

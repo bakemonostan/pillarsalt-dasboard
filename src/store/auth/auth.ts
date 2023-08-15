@@ -2,14 +2,15 @@ import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import User, { UserData } from "../../types/User";
 import { Actions, AuthState } from "../../types/auth";
-import axios from "axios";
-import { authApi, merchantApi } from "../../config/api";
+import axios, { AxiosError } from "axios";
+import { authApi } from "../../config/api";
+
+type ServerError = { message: string };
 
 export const useFormStore = create<User & Actions>()((state) => ({
   email: "",
   password: "",
-  // email: "",
-  // password: "",
+
   setEmail: (email) => state(() => ({ email })),
   setPassword: (password) => state(() => ({ password })),
   resetForm: () => state({ email: "", password: "" }),
@@ -23,15 +24,16 @@ export const useAuthStore = create<AuthState>()(
       (state) => ({
         token: null,
         id: "",
+        error: false,
+        errorMsg: "",
         isLoggedIn: false,
         loading: false,
 
         login: async (user) => {
           try {
             state({ loading: true });
-            // Make the API request to the server
+            state({ error: false });
             const response = await authApi.post("/Account/login", user);
-
             const {
               data: { token },
             } = response.data;
@@ -42,8 +44,12 @@ export const useAuthStore = create<AuthState>()(
             state({ token, isLoggedIn: true, loading: false, profileId });
             profileId;
           } catch (error) {
-            // Handle any errors that occurred during the request
-            state({ loading: false });
+            if (axios.isAxiosError(error)) {
+              state({ error: true });
+              const serverError = error as AxiosError<ServerError>;
+              state({ errorMsg: serverError.response?.data.message });
+              state({ loading: false });
+            }
           }
         },
 
@@ -63,6 +69,33 @@ export const useAuthStore = create<AuthState>()(
   )
 );
 
+type Email = {
+  email: string;
+  errorMsg?: string;
+  error: boolean;
+  setEmail: (password: string) => void;
+  handleForgotPassword: (email: string) => void;
+};
+
+export const useResetPasswordStore = create<Email>((set) => ({
+  email: "",
+  errorMsg: "",
+  error: false,
+  setEmail: (email) => set({ email }),
+  handleForgotPassword: async (email) => {
+    try {
+      await authApi.get(`Account/Initiate-forget-password?email=${email}`);
+      set({ email: "", error: false });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        set({ error: true });
+        const serverError = error as AxiosError<ServerError>;
+        set({ errorMsg: serverError.response?.data.message });
+      }
+    }
+  },
+}));
+
 type Merchant = {
   userData?: UserData;
   getUserData: (user: User) => Promise<void>;
@@ -77,14 +110,4 @@ export const useMerchantStore = create<Merchant>()((state) => ({
       state({ userData });
     } catch (error) {}
   },
-}));
-
-type Email = {
-  email: string;
-  setEmail: (password: string) => void;
-};
-
-export const useResetPasswordStore = create<Email>((set) => ({
-  email: "",
-  setEmail: (email) => set({ email }),
 }));
