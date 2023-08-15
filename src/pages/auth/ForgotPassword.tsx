@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 export default function ForgotPassword() {
     const [isRecaptchaPassed, setIsRecaptchaPassed] = useState(false);
     const recaptchaRef = React.createRef<ReCAPTCHA>()
-    const SITE_KEY = JSON.stringify(import.meta.env.VITE_SITE_KEY).replace(/['"]+/g, '');
+    const SITE_KEY = JSON.stringify(import.meta.env.VITE_SITE_KEY)?.replace(/['"]+/g, '');
     function handleRecaptchaSuccess() {
         setIsRecaptchaPassed(true);
     }
