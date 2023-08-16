@@ -74,23 +74,24 @@ type Email = {
   errorMsg?: string;
   error: boolean;
   setEmail: (password: string) => void;
-  handleForgotPassword: (email: string) => void;
+  handleForgotPassword: (email: string, onSuccess: () => void) => void;
 };
 
-export const useResetPasswordStore = create<Email>((set) => ({
+export const useResetPasswordStore = create<Email>((state) => ({
   email: "",
   errorMsg: "",
   error: false,
-  setEmail: (email) => set({ email }),
-  handleForgotPassword: async (email) => {
+  setEmail: (email) => state({ email }),
+  handleForgotPassword: async (email, onSuccess: () => void) => {
     try {
       await authApi.get(`Account/Initiate-forget-password?email=${email}`);
-      set({ email: "", error: false });
+      state({ email: "", error: false });
+      onSuccess();
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        set({ error: true });
+        state({ error: true });
         const serverError = error as AxiosError<ServerError>;
-        set({ errorMsg: serverError.response?.data.message });
+        state({ errorMsg: serverError.response?.data.message });
       }
     }
   },

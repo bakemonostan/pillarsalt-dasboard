@@ -29,12 +29,13 @@ export default function ForgotPassword() {
         useResetPasswordStore.setState({ error: false });
     };
 
-    // async handlesubmit function
+    const handleSuccess = () => {
+        navigate('/login/verify-email');
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        handleForgotPassword(email)
-        navigate('/verify-email')
-
+        handleForgotPassword(email, handleSuccess);
     }
 
 
