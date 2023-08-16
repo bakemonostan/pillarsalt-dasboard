@@ -5,7 +5,7 @@ import { email_validation } from "../../utils/inputValidations";
 import LeftSide from "../../components/Form/LeftSide";
 import ReCAPTCHA from "react-google-recaptcha";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useResetPasswordStore } from "../../store/auth/auth";
 import { toast } from 'react-toastify';
 
@@ -17,6 +17,7 @@ export default function ForgotPassword() {
     function handleRecaptchaSuccess() {
         setIsRecaptchaPassed(true);
     }
+    const navigate = useNavigate();
     const { email, setEmail, handleForgotPassword, errorMsg, error } = useResetPasswordStore()
     useEffect(() => {
         if (error) {
@@ -32,6 +33,8 @@ export default function ForgotPassword() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         handleForgotPassword(email)
+        navigate('/verify-email')
+
     }
 
 

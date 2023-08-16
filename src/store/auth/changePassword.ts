@@ -73,6 +73,15 @@ export const useChangePasswordStore = create<IChangePasswordStore>((set) => ({
         set({ error: false });
         set({ isloading: false });
         console.log(data);
+        // clear all fields
+        set((state) => ({
+          passwords: {
+            ...state.passwords,
+            oldPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+          },
+        }));
       } catch (error) {
         set({ error: true });
         set({ errorMessage: "Network Error, please try again later" });

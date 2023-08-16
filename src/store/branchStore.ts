@@ -67,6 +67,9 @@ export const useBranchStore = create<BranchStore>((state) => ({
         locationName: locationName,
       });
       state({ isFormLoading: false, error: false, success: true });
+      setTimeout(() => {
+        state({ success: false });
+      }, 3000);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         state({ error: true });

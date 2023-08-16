@@ -1,18 +1,19 @@
 import { merchantApi } from "../../config/api";
 import { useAuthStore } from "../../store/auth/auth";
 import { useProfileStore } from "../../store/profileStore";
-// import {use}
 import Button from "../Button/Button";
 import Input from "../Form/Input";
 import profileIcon from '/images/icon-holder.svg'
+import axios, { AxiosError } from "axios";
+import { toast } from 'react-toastify';
 
+type ServerError = { message: string };
 
 export default function EditProfile() {
     const { setFormField, formFields, setView, userProfile } = useProfileStore();
     const { profileId } = useAuthStore();
     const { acquirerId, merchantRef } = userProfile;
-
-    console.log(profileId, acquirerId, merchantRef)
+    const notify = () => toast.success('Profile updated successfully');
 
     const handleInput = (field: string, value: string) => {
         setFormField(field, value)
@@ -21,12 +22,21 @@ export default function EditProfile() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        const response = await merchantApi.put('Configuration/update-marchant-detail', {
-            profileId,
-            acquirerId,
-            merchantRef,
-            ...formFields
-        })
+        try {
+            await merchantApi.put('Configuration/update-marchant-detail', {
+                profileId,
+                acquirerId,
+                merchantRef,
+                ...formFields
+            })
+            notify()
+        }
+        catch (err) {
+            if (axios.isAxiosError(err)) {
+                const error = err as AxiosError<ServerError>;
+                toast.error(error.response?.data.message);
+            }
+        }
     }
 
     return (

@@ -31,7 +31,6 @@ export default function BranchModal({ title, children }: Props) {
         // Find the selected branch data from allBranches array
         const branchData = allBranches.find(branch => branch.branchName === selectedBranchName);
         setSelectedBranchData(branchData || null);
-        console.log(selectedBranchData)
     };
 
     const handlebranchRequest = async (e: any) => {

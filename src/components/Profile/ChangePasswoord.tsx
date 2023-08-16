@@ -37,7 +37,6 @@ export default function ChangePasswoord() {
         setOldPassword("");
         setNewPasswordValue("");
         setConfirmPassword("");
-
         // Go back to a different view
         setView("profile");
     };
@@ -45,12 +44,12 @@ export default function ChangePasswoord() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await setNewPassword(passwords.oldPassword, passwords.newPassword, passwords.confirmPassword);
-        // Clear all password fields
-        setOldPassword("");
-        setNewPasswordValue("");
-        setConfirmPassword("");
-
+        try {
+            await setNewPassword(passwords.oldPassword, passwords.newPassword, passwords.confirmPassword);
+        }
+        catch (err) {
+            console.log(err)
+        }
     };
 
     return (

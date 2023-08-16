@@ -18,7 +18,9 @@ import {
   BranchReport,
   BranchTranactions,
   NewTicket,
-  TickectDetails
+  TickectDetails,
+  VerifyEmail,
+  VerifiedEmail
 } from "../pages";
 import RootLayout from "../components/Layout/RootLayout";
 import ProtectedRoutes from "../components/Guards/ProtectedRoutes";
@@ -49,6 +51,8 @@ export const router = createBrowserRouter(
           <Route index element={<Login />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="setup-password" element={<SetupPassword />} />
+          <Route path="verify-email" element={<VerifyEmail />} />
+          <Route path="verified-email" element={<VerifiedEmail />} />
         </Route>
       </Route>
     </>

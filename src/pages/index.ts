@@ -11,7 +11,8 @@ import BranchTranactions from "./Branch/index";
 import BranchReport from "./Branch/Branch-report";
 import NewTicket from "./Support/NewTicket";
 import TickectDetails from "./Support/TickectDetails";
-
+import VerifyEmail from "./auth/VerifyEmail";
+import VerifiedEmail from "./auth/VerifiedEmail";
 export {
   Home,
   Branch,
@@ -26,4 +27,6 @@ export {
   BranchReport,
   NewTicket,
   TickectDetails,
+  VerifyEmail,
+  VerifiedEmail,
 };
