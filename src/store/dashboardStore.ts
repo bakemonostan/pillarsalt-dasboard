@@ -78,6 +78,7 @@ export const useDashboardStore = create<DashBoard>((set) => ({
     await handleApiRequest(set, req, setState);
     set({ isLoading: false });
   },
+
   getDormantWallets: async () => {
     set({ isLoading: true });
     const req = merchantApi.get(
@@ -89,6 +90,7 @@ export const useDashboardStore = create<DashBoard>((set) => ({
     await handleApiRequest(set, req, setState);
     set({ isLoading: false });
   },
+
   getRegisteredWallets: async () => {
     set({ isLoading: true });
     const req = merchantApi.get(

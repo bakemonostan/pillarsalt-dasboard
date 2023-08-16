@@ -60,7 +60,7 @@ export default function Transactions({ }: Props) {
     };
     return (
         <div className="flex flex-col space-y-6">
-            <div className="pt-10 flex items-center justify-between gap-5">
+            <div className="flex items-center justify-between gap-5 pt-10">
                 <h1 className="font-bold text-[#2C3C34] lg:text-2xl"> Branch Transactions</h1>
                 <div className="">
                     <label htmlFor="date-filter" className="hidden text-sm font-medium leading-6 text-gray-900">
@@ -81,7 +81,7 @@ export default function Transactions({ }: Props) {
                 </div>
 
             </div >
-            <section className="hide flex gap-5 overflow-x-scroll ml-3 py-3">
+            <section className="flex gap-5 py-3 ml-3 overflow-x-scroll hide">
                 {
                     cards.map((card, index) => {
                         return (
@@ -93,15 +93,15 @@ export default function Transactions({ }: Props) {
 
             <section className="flex flex-col gap-5 py-4">
                 <div className="flex justify-between md:w-[23rem] items-center md:mx-auto xl:w-full">
-                    <h2 className="font-bold text-xl text-headers">
+                    <h2 className="text-xl font-bold text-headers">
                         Tranaction History
                     </h2>
-                    <p className="text-sm text-greenMain font-bold cursor-pointer">
+                    <p className="text-sm font-bold cursor-pointer text-greenMain">
                         See all
                     </p>
                 </div>
-                <div className="overflow-x-auto hidden xl:block">
-                    <table className="table-auto border-collapse w-full">
+                <div className="hidden overflow-x-auto xl:block">
+                    <table className="w-full border-collapse table-auto">
 
 
                         <thead>
@@ -119,12 +119,19 @@ export default function Transactions({ }: Props) {
                             </tr>
                         </thead>
                         {
-                            currentTransactions.map((transaction, index) => {
-                                return (
-                                    <TransactionBody {...transaction} key={index} />
-                                )
-                            })
+                            transactionHistory.length > 0 ?
+                                currentTransactions.map((transaction, index) => {
+                                    return (
+                                        <TransactionBody {...transaction} key={index} />
+                                    )
+                                }) :
+                                <tbody>
+                                    <tr className="w-full py-2 text-center">
+                                        <td className="px-4 py-8" colSpan={9}>No Branches Found</td>
+                                    </tr>
+                                </tbody>
                         }
+
                     </table>
                 </div>
 

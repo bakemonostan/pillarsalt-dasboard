@@ -5,6 +5,7 @@ import close from '/images/close.svg'
 import { motion } from 'framer-motion'
 import { useBranchStore } from "../../store/branchStore"
 import { AllBranches } from "../../types/branch"
+import { toast } from 'react-toastify';
 
 interface Props extends ButtonProps {
     title: React.ReactNode
@@ -13,7 +14,16 @@ interface Props extends ButtonProps {
 export default function BranchModal({ title, children }: Props) {
     const [selectedBranch, setSelectedBranch] = useState('' as string);
     const [selectedBranchData, setSelectedBranchData] = useState(null as AllBranches | null);
-    const { allBranches, isFormLoading, getBranchRequest, error, setModal, success } = useBranchStore();
+    const { allBranches, isFormLoading, getBranchRequest, error, setModal, success, errorMsg } = useBranchStore();
+
+    useEffect(() => {
+        if (error) {
+            toast.error(errorMsg);
+        }
+        if (success) {
+            toast.success('Branch request sent');
+        }
+    }, [error, errorMsg, success]);
 
     const handleBranchSelection = (event: any) => {
         const selectedBranchName = event.target.value;
@@ -26,11 +36,17 @@ export default function BranchModal({ title, children }: Props) {
 
     const handlebranchRequest = async (e: any) => {
         e.preventDefault();
+        if (selectedBranchData == null) {
+            toast.error('Please select a branch');
+            return;
+        }
+
         getBranchRequest(
             selectedBranchData?.id,
             selectedBranchData?.branchName,
             selectedBranchData?.branchName,
-        )
+        );
+
         if (!isFormLoading) {
             setSelectedBranch('')
             setSelectedBranchData(null)
@@ -55,9 +71,10 @@ export default function BranchModal({ title, children }: Props) {
                     <div className="items-center justify-between px-4 pt-3 pb-2 bg-white sm:px-6">
                         <div className="flex items-center justify-between w-full gap-2 ">
                             <span className='text-xl font-bold'>{title}</span>
-                            <span className="cursor-pointer" onClick={
-                                () => setModal(false)
-                            }  > <img src={close} alt="" /></span>
+                            <span className="cursor-pointer" onClick={() => {
+                                setModal(false)
+                                useBranchStore.setState({ error: false });
+                            }}  > <img src={close} alt="" /></span>
                         </div>
                         <p>
                             Kindly select branch below
@@ -82,7 +99,7 @@ export default function BranchModal({ title, children }: Props) {
                         <div className="space-y-4">
                             <textarea name="" id="" className="w-full p-2 border rounded-md" cols={130} rows={6} placeholder="Provide comment here" />
                         </div>
-                        {error && <span className='text-sm font-semibold text-red-500'>Please select a branch </span>}
+                        {error && <span className='text-sm font-semibold text-red-500'>{errorMsg} </span>}
                         {success && <span className='text-sm font-semibold text-greenMain'>Branch request sent</span>}
                     </div>
 
@@ -90,7 +107,10 @@ export default function BranchModal({ title, children }: Props) {
                         <Button label='Request' type="submit" variant='primary'
                             isDisabled={isFormLoading}
                         />
-                        <Button label='Cancel' type="button" variant='outline' onClick={() => setModal(false)} />
+                        <Button label='Cancel' type="button" variant='outline' onClick={() => {
+                            setModal(false)
+                            useBranchStore.setState({ error: false });
+                        }} />
                     </div>
                 </motion.form>
             </div>

@@ -1,5 +1,7 @@
 export interface WalletStore {
   isLoading: boolean;
+  isError?: boolean;
+  errorMsg?: string;
   transactionHistory: TransactionHistory[];
   merchantDashboard: MerchantDashboard;
   getTransactionHistory: () => Promise<void>;

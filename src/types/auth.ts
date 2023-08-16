@@ -2,7 +2,7 @@ import User, { UserData } from "./User";
 
 export interface AuthState {
   token: string | null;
-  loading: boolean;
+  loading?: boolean;
   error?: boolean;
   errorMsg?: string;
   isLoggedIn?: boolean;

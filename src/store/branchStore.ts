@@ -1,16 +1,13 @@
 import { create } from "zustand";
-import {
-  AllBranches,
-  BranchRequest,
-  BranchStore,
-  BranchTransactionHistory,
-} from "../types/branch";
+import { BranchStore } from "../types/branch";
 import { merchantApi } from "../config/api";
-import { set } from "react-hook-form";
+import axios, { AxiosError } from "axios";
+type ServerError = { message: string };
 
 export const useBranchStore = create<BranchStore>((state) => ({
   isLoading: false,
   isFormLoading: false,
+  errorMsg: "",
   allBranches: [],
   transactionHistory: [],
   error: false,
@@ -25,8 +22,15 @@ export const useBranchStore = create<BranchStore>((state) => ({
       const allBranches = response?.data.data;
       state({ allBranches });
     } catch (error) {
-      error;
+      if (axios.isAxiosError(error)) {
+        state({ error: true });
+        const serverError = error as AxiosError<ServerError>;
+        state({ errorMsg: serverError.response?.data.message });
+        console.log(serverError.response?.data.message);
+        state({ isLoading: false });
+      }
     }
+    state({ isLoading: false });
   },
 
   getBranchTransactionHistory: async () => {
@@ -39,8 +43,15 @@ export const useBranchStore = create<BranchStore>((state) => ({
       const transactionHistory = response?.data.data;
       state({ transactionHistory });
     } catch (error) {
-      error;
+      if (axios.isAxiosError(error)) {
+        state({ error: true });
+        const serverError = error as AxiosError<ServerError>;
+        state({ errorMsg: serverError.response?.data.message });
+        console.log(serverError.response?.data.message);
+        state({ isLoading: false });
+      }
     }
+    state({ isLoading: false });
   },
 
   getBranchRequest: async (
@@ -50,23 +61,19 @@ export const useBranchStore = create<BranchStore>((state) => ({
   ) => {
     try {
       state({ isFormLoading: true });
-      state({ error: false });
-
       await merchantApi.post("Branch/branch-request", {
         branchId: id,
         userName: userName,
         locationName: locationName,
       });
-      state({ isFormLoading: false });
-      state({ success: true });
-      setTimeout(() => {
-        state({ success: false });
-      }, 3000);
+      state({ isFormLoading: false, error: false, success: true });
     } catch (error) {
-      state({ isFormLoading: false });
-      state({ error: true });
-      state({ success: false });
-      error;
+      if (axios.isAxiosError(error)) {
+        state({ error: true });
+        const serverError = error as AxiosError<ServerError>;
+        state({ errorMsg: serverError.response?.data.message });
+        state({ isFormLoading: false });
+      }
     }
   },
 }));

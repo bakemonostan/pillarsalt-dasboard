@@ -1,11 +1,9 @@
 import Cards from "./Cards"
 import profileIcon from '/images/icon-holder.svg'
-import walletIcon from '/images/walletCard.svg'
 import bank from '/images/bank.svg'
 import Table from './Table'
 import { useModal } from "../../store/wallet"
 import { useWalletStore } from "../../store/walletStore"
-import { formatCurrency } from "../../utils/formatCurrency"
 import ModalMain from "../ModalsAndPopups/ModalMain"
 import Card from "../Card/CardMain"
 import WithdrawFunds from "../ModalsAndPopups/WithdrawFunds"
@@ -16,13 +14,13 @@ import { useState } from "react"
 type Props = {}
 export default function Walletin({ }: Props) {
     const { isFundWallet, showModal, isWithdraw } = useModal()
-    const { merchantDashboard, transactionHistory } = useWalletStore()
+    const { merchantDashboard, transactionHistory, isLoading, errorMsg, isError } = useWalletStore()
     const [currentPage, setCurrentPage] = useState(1)
     const [rowsPerPage] = useState(5)
-
     const indexOfLastCard = currentPage * rowsPerPage
     const indexOfFirstCard = indexOfLastCard - rowsPerPage
     const currentTransactions = transactionHistory.slice(indexOfFirstCard, indexOfLastCard)
+
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page)
@@ -133,7 +131,11 @@ export default function Walletin({ }: Props) {
 
                     </section>
                     :
-                    'meh'
+                    <div className="flex flex-col items-center justify-center h-[50vh]">
+                        <p className="text-2xl font-bold text-headers">No Transaction History</p>
+                        <p className="text-sm text-grayTwo">You have no transaction history yet</p>
+                    </div>
+
             }
         </>
     )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../Form/Input';
 import Button from '../Button/Button';
 import Card from '../Card/CardMain';
@@ -6,9 +6,11 @@ import { useBranchStore } from '../../store/branchStore';
 import BranchReportTable from '../Table/BranchReportTable';
 import Pagination from '../Paginate';
 import BranchModal from '../ModalsAndPopups/BranchModal';
+import { toast } from 'react-toastify';
+
 
 export default function Report() {
-    const { allBranches, setModal, showModal } = useBranchStore();
+    const { allBranches, setModal, showModal, error, errorMsg } = useBranchStore();
     const [searchText, setSearchText] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -33,6 +35,11 @@ export default function Report() {
         return true;
     });
 
+    useEffect(() => {
+        if (error) {
+            toast.error(errorMsg)
+        }
+    }, [])
 
     const clearFilters = () => {
         setSearchText('');
@@ -121,7 +128,7 @@ export default function Report() {
                                 <th className="px-4 py-2 text-center">Actions</th>
                             </tr>
                         </thead>
-                        {
+                        {currentBranch.length > 0 ?
                             currentBranch.map((branch) => {
                                 return (
                                     <BranchReportTable
@@ -131,6 +138,13 @@ export default function Report() {
                                 )
                             }
                             )
+                            :
+                            <tbody>
+                                <tr className="text-center bg-[#ECF2BA] w-full py-3">
+                                    <td className="px-4 py-2" colSpan={9}>No Branches Found</td>
+                                </tr>
+                            </tbody>
+
 
                         }
                     </table>
