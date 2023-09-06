@@ -1,5 +1,6 @@
 import { useBranchStore } from "../../store/branchStore";
 import { capitalizeFirst } from "../../utils/formatWord";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 type Props = {}
 export default function TransCard({ }: Props) {
@@ -17,11 +18,11 @@ export default function TransCard({ }: Props) {
               {/* Card head */}
               <div className='flex justify-between border-b items-center border-b-[#F3F3F3]'>
                 <p className='flex gap-1 pb-2'>
-                  <span className="text-xs text-opacity-40 text-black font-semibold">S/N</span>
-                  <span className="text-xs text-opacity-40 text-black font-semibold">{transaction.id}</span>
+                  <span className="text-xs font-semibold text-black text-opacity-40">S/N</span>
+                  <span className="text-xs font-semibold text-black text-opacity-40">{transaction.id}</span>
                 </p>
                 <p className='flex gap-1 pb-2'>
-                  <span className="text-xs text-opacity-40 text-black ">Date:</span>
+                  <span className="text-xs text-black text-opacity-40 ">Date:</span>
                   <span className="text-xs text-greenMain ">{formattedDateTime}</span>
                 </p>
                 <p className='flex gap-2 pb-2 text-xs'>
@@ -33,34 +34,34 @@ export default function TransCard({ }: Props) {
               {/* Card body */}
               <div className='flex text-xs justify-between font-bold  items-center border-b border-b-[#F3F3F3] text-opacity-40 text-black '>
                 <p className='flex flex-col gap-2 pb-2'>
-                  <span className=" text-opacity-40 text-black ">Depositor:</span>
-                  <span className=" text-opacity-40 text-black  ">James David</span>
+                  <span className="text-black text-opacity-40">Depositor:</span>
+                  <span className="text-black text-opacity-40">{transaction.createdBy ?? 'N/A'}</span>
                 </p>
                 <p className='flex flex-col gap-2 pb-2'>
-                  <span className=" text-opacity-40 text-black ">Branch Name:</span>
-                  <span className="text-opacity-40 text-black font-semibold">{capitalizeFirst(transaction.branchName)}</span>
+                  <span className="text-black text-opacity-40">Branch Name:</span>
+                  <span className="font-semibold text-black text-opacity-40">{capitalizeFirst(transaction.branchName)}</span>
                 </p>
 
                 <p className='flex flex-col gap-2 pb-2'>
-                  <span className=" text-black text-opacity-40 font-semibold">Branch ID</span>
-                  <span className="  ">{transaction.branchID ?? 'N/A'}</span>
+                  <span className="font-semibold text-black text-opacity-40">Branch ID</span>
+                  <span className="">{transaction.branchID ?? 'N/A'}</span>
                 </p>
 
 
               </div>
               <div className='flex justify-between  items-center border-b border-b-[#F3F3F3] text-opacity-40 text-black text-xs'>
                 <p className='flex flex-col gap-2 pb-2'>
-                  <span className="text-opacity-40 text-black font-semibold"> Amount:</span>
-                  <span className="font-semibold text-opacity-40 text-black">N1,200,00</span>
+                  <span className="font-semibold text-black text-opacity-40"> Amount:</span>
+                  <span className="font-semibold text-black text-opacity-40">{formatCurrency(transaction.amount)}</span>
                 </p>
                 <p className='flex flex-col gap-2 pb-2'>
-                  <span className="text-xs text-opacity-40 text-black font-semibold">Date Created:</span>
+                  <span className="text-xs font-semibold text-black text-opacity-40">Date Created:</span>
                   <span className="font-bold">{capitalizeFirst(formattedDateTime)}</span>
                 </p>
 
                 <p className='flex flex-col gap-2 pb-2'>
-                  <span className="text-xs text-black text-opacity-40 font-semibold">Actions</span>
-                  <span className="text-xs text-black font-semibold">|</span>
+                  <span className="text-xs font-semibold text-black text-opacity-40">Actions</span>
+                  <span className="text-xs font-semibold text-black">|</span>
                 </p>
 
 

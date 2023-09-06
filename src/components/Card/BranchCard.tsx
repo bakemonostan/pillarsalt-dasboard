@@ -17,12 +17,12 @@ export default function BranchCard({ }: Props) {
                             {/* Card head */}
                             <div className='flex justify-between border-b items-center border-b-[#F3F3F3]'>
                                 <p className='flex gap-2 pb-2'>
-                                    <span className="text-xs text-opacity-40 text-black font-semibold">S/N</span>
-                                    <span className="text-xs text-opacity-40 text-black font-semibold">{branch.id}</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40">S/N</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40">{branch.id}</span>
                                 </p>
                                 <p className='flex gap-2 pb-2'>
-                                    <span className="text-xs text-opacity-40 text-black font-semibold">ID:</span>
-                                    <span className="text-xs text-opacity-40 text-black font-semibold">{branch.acquirerId}</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40">ID:</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40">{branch.acquirerId}</span>
                                 </p>
                                 <p className='flex gap-2 pb-2'>
                                     <span>Code:</span>
@@ -33,34 +33,34 @@ export default function BranchCard({ }: Props) {
                             {/* Card body */}
                             <div className='flex justify-between font-bold text-greenMain items-center border-b border-b-[#F3F3F3]'>
                                 <p className='flex flex-col gap-2 pb-2'>
-                                    <span className="text-xs text-opacity-40 text-black ">Branch ID:</span>
+                                    <span className="text-xs text-black text-opacity-40 ">Branch ID:</span>
                                     <span className="text-xs text-greenMain ">{branch.acquirerId}</span>
                                 </p>
                                 <p className='flex flex-col gap-2 pb-2'>
-                                    <span className="text-xs text-opacity-40 text-black font-semibold">Location:</span>
-                                    <span className="text-sm  ">{branch.address.charAt(0).toUpperCase() + branch.address.slice(1)}</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40">Location:</span>
+                                    <span className="text-sm ">{branch.address.charAt(0).toUpperCase() + branch.address.slice(1)}</span>
                                 </p>
 
                                 <p className='flex flex-col gap-2 pb-2'>
-                                    <span className="text-xs text-black text-opacity-40 font-semibold">Requested by</span>
-                                    <span className="text-xs  ">James David</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40">Requested by</span>
+                                    <span className="text-xs ">{branch.managerName ?? 'N/A'}</span>
                                 </p>
 
 
                             </div>
                             <div className='flex justify-between  items-center border-b border-b-[#F3F3F3]'>
                                 <p className='flex flex-col gap-2 pb-2'>
-                                    <span className="text-xs text-opacity-40 text-black font-semibold"> Address:</span>
-                                    <span className="text-xs text-greenMain font-semibold">{capitalizeFirst(branch.address)}</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40"> Address:</span>
+                                    <span className="text-xs font-semibold text-greenMain">{capitalizeFirst(branch.address)}</span>
                                 </p>
                                 <p className='flex flex-col gap-2 pb-2'>
-                                    <span className="text-xs text-opacity-40 text-black font-semibold">Date Created:</span>
-                                    <span className="text-sm text-greenMain font-bold">{capitalizeFirst(formattedDateTime)}</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40">Date Created:</span>
+                                    <span className="text-sm font-bold text-greenMain">{capitalizeFirst(formattedDateTime)}</span>
                                 </p>
 
                                 <p className='flex flex-col gap-2 pb-2'>
-                                    <span className="text-xs text-black text-opacity-40 font-semibold">Actions</span>
-                                    <span className="text-xs text-black font-semibold">|</span>
+                                    <span className="text-xs font-semibold text-black text-opacity-40">Actions</span>
+                                    <span className="text-xs font-semibold text-black">|</span>
                                 </p>
 
 

@@ -1,7 +1,4 @@
 import Cards from "../Home/Cards"
-import arrow from '/images/arrow-down.svg'
-import Table from "../Table"
-import TransactionCard from "../Wallet/TransactionCard"
 import { useBranchStore } from "../../store/branchStore"
 import Card from "../Card/CardMain"
 import TransactionBody from "../Table/TransactionBody"
@@ -138,9 +135,8 @@ export default function Transactions({ }: Props) {
                 <Card page="transaction" />
                 <Pagination
                     currentPage={currentPage}
-                    totalPages={transactionHistory.length / rowsPerPage}
+                    totalPages={Math.ceil(transactionHistory.length / rowsPerPage)}
                     onPageChange={handlePageChange}
-
                 />
             </section>
         </div>
