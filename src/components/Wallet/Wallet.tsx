@@ -14,7 +14,7 @@ import { useState } from "react"
 type Props = {}
 export default function Walletin({ }: Props) {
     const { isFundWallet, showModal, isWithdraw } = useModal()
-    const { merchantDashboard, transactionHistory, isLoading, errorMsg, isError } = useWalletStore()
+    const { merchantDashboard, transactionHistory } = useWalletStore()
     const [currentPage, setCurrentPage] = useState(1)
     const [rowsPerPage] = useState(5)
     const indexOfLastCard = currentPage * rowsPerPage

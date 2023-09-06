@@ -1,7 +1,4 @@
 import actionsIcon from '/images/actions.svg'
-import { transactionHistory } from '../../utils/tableData'
-import { useBranchStore } from '../../store/branchStore'
-import { useWalletStore } from '../../store/walletStore'
 import { TransactionHistory } from '../../types/wallet'
 
 type Props = {

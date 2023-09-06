@@ -1,8 +1,9 @@
 import { useBranchStore } from "../../store/branchStore";
 import { BranchTransactionHistory } from "../../types/branch";
+import { formatCurrency } from "../../utils/formatCurrency";
 import actionsIcon from "/images/actions.svg"
 
-export default function TransactionBody({ id, createdAt, status, transactionRef, depositor, branchID, branchName, narration }: BranchTransactionHistory) {
+export default function TransactionBody({ id, createdAt, status, transactionRef, depositor, branchID, branchName, narration, amount }: BranchTransactionHistory) {
 
     const date = new Date(createdAt);
     const formattedDateTime = date.toLocaleDateString();
@@ -15,7 +16,7 @@ export default function TransactionBody({ id, createdAt, status, transactionRef,
                 <td className="p-4 border-b border-[#EBEBEB]">{depositor}</td>
                 <td className="p-4 border-b border-[#EBEBEB]">{branchID ?? 'N/A'}</td>
                 <td className="p-4 border-b border-[#EBEBEB]">{branchName}</td>
-                <td className="p-4 border-b border-[#EBEBEB]">N1,200,200</td>
+                <td className="p-4 border-b border-[#EBEBEB]">{formatCurrency(amount)}</td>
                 <td className="p-4 border-b border-[#EBEBEB]">{!!status ?
                     <span className='bg-green-500 text-white font-semibold px-2.5 py-1 rounded-xl'>
                         Completed

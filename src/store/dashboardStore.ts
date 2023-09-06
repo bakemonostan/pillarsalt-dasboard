@@ -13,6 +13,10 @@ export const useDashboardStore = create<DashBoard>((set) => ({
   newWallets: "0",
   dormantWallets: "0",
   registeredWallets: "0",
+  averageTransactionValue: "0",
+  transactionsProcessed: "0",
+  transactionVolume: "0",
+
   getCurrentBalance: async () => {
     set({ isLoading: true });
     const req = merchantApi.get(
@@ -98,6 +102,41 @@ export const useDashboardStore = create<DashBoard>((set) => ({
     );
     const setState = (registeredWallets: string) => {
       set({ registeredWallets });
+    };
+    await handleApiRequest(set, req, setState);
+    set({ isLoading: false });
+  },
+
+  getaverageTransactionValue: async () => {
+    set({ isLoading: true });
+    const req = merchantApi.get(
+      "/DashboardAndReport/get-total-Average-transaction-dashboard"
+    );
+    const setState = (averageTransactionValue: string) => {
+      set({ averageTransactionValue });
+    };
+    await handleApiRequest(set, req, setState);
+    set({ isLoading: false });
+  },
+
+  getTransactionsProcessed: async () => {
+    set({ isLoading: true });
+    const req = merchantApi.get(
+      "/DashboardAndReport/get-all-transaction-proccessed-dashboard"
+    );
+    const setState = (transactionsProcessed: string) => {
+      set({ transactionsProcessed });
+    };
+    await handleApiRequest(set, req, setState);
+    set({ isLoading: false });
+  },
+  getTransactionVolume: async () => {
+    set({ isLoading: true });
+    const req = merchantApi.get(
+      "/DashboardAndReport/get-total-transaction-volume-dashboard"
+    );
+    const setState = (transactionVolume: string) => {
+      set({ transactionVolume });
     };
     await handleApiRequest(set, req, setState);
     set({ isLoading: false });

@@ -15,7 +15,7 @@ export default function Home({ }: Props) {
         getTotalBranches, getTotalTransactions, getTotalWithdrawals,
         isLoading, totalTransactions, totalbranches, totalwithdrawals,
         activeWallets, dormantWallets, getActiveWallets, getDormantWallets,
-        getNewWallets, newWallets, getRegisteredWallets, registeredWallets
+        getNewWallets, newWallets, getRegisteredWallets, registeredWallets, getTransactionVolume, getTransactionsProcessed, getaverageTransactionValue,
     } = useDashboardStore()
 
     useEffect(() => {
@@ -27,6 +27,9 @@ export default function Home({ }: Props) {
         getDormantWallets()
         getNewWallets()
         getRegisteredWallets()
+        getTransactionVolume()
+        getTransactionsProcessed()
+        getaverageTransactionValue()
     }, [])
 
 
@@ -35,7 +38,7 @@ export default function Home({ }: Props) {
             <div className="pt-10">
                 <h1 className="font-bold text-[#2C3C34] text-2xl"> Dashboard</h1>
             </div >
-            <section className="hide flex gap-5 overflow-x-scroll ml-3 py-3">
+            <section className="flex gap-5 py-3 ml-3 overflow-x-scroll hide">
                 <Card
                     amount={formatCurrency(currentBalance)}
                     isRaising={true}
@@ -70,10 +73,10 @@ export default function Home({ }: Props) {
 
                 />
             </section>
-            <section className="flex flex-wrap xl:flex-nowrap gap-8">
+            <section className="flex flex-wrap gap-8 xl:flex-nowrap">
                 <ChartSection />
             </section>
-            <section className="hide flex gap-5 overflow-x-scroll ml-3 py-3">
+            <section className="flex gap-5 py-3 ml-3 overflow-x-scroll hide">
                 <Card
                     amount={registeredWallets}
                     isRaising={true}
